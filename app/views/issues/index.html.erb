@@ -1,0 +1,35 @@
+<div class="container">
+<!--   <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+  </ol> -->
+  <div class="row">
+    <%= link_to '+ Add Issue' , new_journal_issue_path , class: 'btn btn-primary pull-right' %>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <th>No</th>
+        <th>Vol</th>
+        <th>No</th>
+        <th>Tools</th>
+      </thead>
+      <tbody>
+        <% @issues.each_with_index do |issue,index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= link_to issue.year , journal_issue_articles_path(@journal,issue.id) %></td>
+          <td><%= index + 1 %></td>
+          <td>
+            <%= link_to 'Edit' ,edit_journal_issue_path(@journal,issue.id), class: "btn btn-warning" %>
+            <%= link_to 'Destroy', journal_issue_path(@journal,issue.id),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: ejournal_production
-  username: ejournal
-  password: <%= ENV['EJOURNAL_DATABASE_PASSWORD'] %>
+  database: ejournal
+  username: kenshero
+  password: ejadmin@lib!

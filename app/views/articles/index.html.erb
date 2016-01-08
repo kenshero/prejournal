@@ -1,0 +1,36 @@
+<div class="container">
+<!--   <ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+  </ol> -->
+  <div class="row">
+    <%= link_to '+ Add Article' , new_journal_issue_article_path , class: 'btn btn-primary pull-right' %>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+        <th>Tools</th>
+      </thead>
+      <tbody>
+        <% @articles.each_with_index do |article,index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= link_to article.article_name_th , journal_issue_article_path(@journal.id,
+          @issue.id,article.id) %></td>
+          <td>
+            <%= link_to 'Edit' ,edit_journal_issue_article_path(@journal,@issue,article.id), class: "btn btn-warning" %>
+            <%= link_to 'Destroy', journal_issue_article_path(@journal,@issue,article.id),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+ <!-- 086-374-7631 -->
