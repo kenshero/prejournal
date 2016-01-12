@@ -52,3 +52,22 @@
 #                     author_name: name)
 #   end
 # end
+
+# count = 1;
+
+# open("/home/kenshero/journal_path.txt") do |journals|
+#   journals.read.each_line do |journal|
+#     path = journal
+#     puts "#{path} "
+#     find_journal = Journal.find(count)
+#     find_journal.journal_name_eng = path
+#     find_journal.save
+#     count = count + 1
+#   end
+# end
+
+Journal.order("id ASC").each do |journal|
+  puts "#{journal.journal_name_eng}"
+  # journal.journal_name_eng = nil;
+  # journal.save
+end

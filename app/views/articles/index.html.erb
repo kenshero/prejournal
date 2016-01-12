@@ -18,11 +18,10 @@
         <% @articles.each_with_index do |article,index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td><%= link_to article.article_name_th , journal_issue_article_path(@journal.id,
-          @issue.id,article.id) %></td>
+          <td class="col-md-8"><%= link_to article.article_name_th , edit_journal_issue_article_path(@journal,@issue,article.id)%></td>
           <td>
             <%= link_to 'Edit' ,edit_journal_issue_article_path(@journal,@issue,article.id), class: "btn btn-warning" %>
-            <%= link_to 'Destroy', journal_issue_article_path(@journal,@issue,article.id),
+            <%= link_to 'Delete', journal_issue_article_path(@journal,@issue,article.id),
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
           </td>

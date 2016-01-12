@@ -7,6 +7,19 @@
   <div class="row">
     <%= link_to '+ Add Journal' , new_journal_path , class: 'btn btn-primary pull-right' %>
   </div>
+
+  <%= form_tag journals_path, method: :get do %>
+    <div class="row" style="margin-bottom:18px;">
+      <div class="col-md-9">
+         <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search'%>
+      </div>
+
+      <div class="col-md-1">
+        <%= button_tag 'Search',:class => "btn btn-success", name: "btn-search" %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
     <table class="table table-striped">
       <thead>
@@ -19,11 +32,11 @@
         <% @journals.each_with_index do |journal,index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td><%= link_to journal.journal_name_th , journal_issues_path(journal.id) %></td>
-          <td><%= journal.id %></td>
+          <td class="col-md-5"><%= link_to journal.journal_name_th, journal_issues_path(journal.id) %></td>
+          <td class="col-md-5"><%= journal.journal_name_eng %></td>
           <td>
             <%= link_to 'Edit' ,edit_journal_path(journal.id), class: "btn btn-warning" %>
-            <%= link_to 'Destroy', journal_path(journal.id),
+            <%= link_to 'Delete', journal_path(journal.id),
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
           </td>

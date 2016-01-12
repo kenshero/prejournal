@@ -11,8 +11,7 @@
     <table class="table table-striped">
       <thead>
         <th>No</th>
-        <th>Vol</th>
-        <th>No</th>
+        <th>Year</th>
         <th>Tools</th>
       </thead>
       <tbody>
@@ -20,10 +19,9 @@
         <tr>
           <td><%= index + 1 %></td>
           <td><%= link_to issue.year , journal_issue_articles_path(@journal,issue.id) %></td>
-          <td><%= index + 1 %></td>
           <td>
             <%= link_to 'Edit' ,edit_journal_issue_path(@journal,issue.id), class: "btn btn-warning" %>
-            <%= link_to 'Destroy', journal_issue_path(@journal,issue.id),
+            <%= link_to 'Delete', journal_issue_path(@journal,issue.id),
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
           </td>

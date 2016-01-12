@@ -1,6 +1,10 @@
 class JournalsController < ApplicationController
   def index
-    @journals = Journal.all
+    if params[:q].present?
+      @journals = Journal.journal_back_cart_search(params[:q]).results
+    else
+      @journals = Journal.order('id ASC').all
+    end
   end
 
   def new

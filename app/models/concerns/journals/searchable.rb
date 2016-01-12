@@ -16,6 +16,21 @@ module Journals
           }
         )
       end
+
+      def self.journal_back_cart_search(text_search)
+        __elasticsearch__.search(
+          {
+            query: {
+              multi_match: {
+                query: text_search,
+                type: "phrase_prefix",
+                fields: ['journal_name_th','journal_name_eng']
+              }
+            }
+          }
+        )
+      end
+
      end
   end
 end
