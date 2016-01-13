@@ -6,7 +6,8 @@ class Article < ActiveRecord::Base
   include Articles::Mapping
 
   belongs_to :issue
-
+  has_many :article_authors, dependent: :destroy
+  has_many :authors, through: :article_authors
   before_create :set_id_article
 
   def set_id_article

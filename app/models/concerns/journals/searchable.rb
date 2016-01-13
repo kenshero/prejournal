@@ -5,12 +5,12 @@ module Journals
       def self.journal_search(text_search,page)
         __elasticsearch__.search(
           {
-            from: (page-1)*15 ,size: 15,
+            from: page*20 ,size: 20,
             query: {
               multi_match: {
                 query: text_search,
                 type: "phrase_prefix",
-                fields: ['journal_name_th','journal_name_eng']
+                fields: ['journal_name','journal_file_path']
               }
             }
           }
@@ -24,7 +24,7 @@ module Journals
               multi_match: {
                 query: text_search,
                 type: "phrase_prefix",
-                fields: ['journal_name_th','journal_name_eng']
+                fields: ['journal_name','journal_file_path']
               }
             }
           }

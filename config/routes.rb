@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  # get 'articles/index'
-
-  # get 'issues/index'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -22,14 +18,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :authors
+
   namespace :api do
     namespace :v1 do
-      get 'journals' => 'journals#index'
+      # get 'journals' => 'journals#index'
       get 'journals/:textSearch/page/:page' => 'journals#search'
-      get 'issues/:journal_id' => 'journals#search_issues'
-      get 'articles/:issue_id' => 'journals#search_articles'
-      get 'getarticle/:article_id' => 'journals#get_article'
-      get 'getauthor/:author_id' => 'journals#get_author'
+      # get 'issues/:journal_id' => 'journals#search_issues'
+      # get 'articles/:issue_id' => 'journals#search_articles'
+      # get 'getarticle/:article_id' => 'journals#get_article'
+      # get 'getauthor/:author_id' => 'journals#get_author'
     end
   end
 

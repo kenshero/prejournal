@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160101104437) do
+ActiveRecord::Schema.define(version: 20160113142002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_authors", force: :cascade do |t|
+    t.string   "authortype"
+    t.integer  "author_id"
+    t.integer  "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "article_authors", ["article_id"], name: "index_article_authors_on_article_id", using: :btree
+  add_index "article_authors", ["author_id"], name: "index_article_authors_on_author_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "article_name_th"
@@ -42,12 +53,14 @@ ActiveRecord::Schema.define(version: 20160101104437) do
   add_index "issues", ["journal_id"], name: "index_issues_on_journal_id", using: :btree
 
   create_table "journals", force: :cascade do |t|
-    t.string   "journal_name_th"
-    t.string   "journal_name_eng"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "journal_name"
+    t.string   "journal_file_path"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
+  add_foreign_key "article_authors", "articles"
+  add_foreign_key "article_authors", "authors"
   add_foreign_key "articles", "issues"
   add_foreign_key "issues", "journals"
 end

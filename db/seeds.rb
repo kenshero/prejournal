@@ -9,10 +9,9 @@
 # open("/home/kenshero/journal_title.txt") do |journals|
 #   journals.read.each_line do |journal|
 #     words = journal.split("|")
-#     puts "#{words[0]} .... #{words[1]}"
-#     Journal.create!(id: words[0],
-#                     journal_name_th: words[1],
-#                     journal_name_eng: words[1])
+#     puts "#{words[1]}"
+#     # Journal.order("id ASC").each do |journal|
+#     # end
 #   end
 # end
 
@@ -66,8 +65,26 @@
 #   end
 # end
 
-Journal.order("id ASC").each do |journal|
-  puts "#{journal.journal_name_eng}"
-  # journal.journal_name_eng = nil;
-  # journal.save
-end
+# Journal.order("id ASC").each do |journal|
+#   puts "#{journal.journal_name_eng}"
+#   journal.journal_name_eng = nil;
+#   journal.save
+# end
+
+# Article.order("id ASC").each do |article|
+#   puts "#{article.article_name_eng}"
+#   article.article_name_eng = nil
+#   article.save
+# end
+
+# count = 1
+# open("/home/kenshero/journal_title.txt") do |journals|
+#   journals.read.each_line do |journal|
+#     words = journal.split("|")
+#     puts "#{words[1]} "
+#     find_journal = Journal.find(count)
+#     find_journal.journal_name = words[1]
+#     find_journal.save
+#     count = count + 1
+#   end
+# end

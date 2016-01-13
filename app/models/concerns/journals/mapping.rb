@@ -5,8 +5,8 @@ module Journals
       index_name "#{Rails.env}_prejournals"
       mapping do
           indexes :id, index: :not_analyzed
-          indexes :journal_name_th, analyzer: 'thai', index_options: 'offsets',  boost: 10
-          indexes :journal_name_eng, analyzer: 'thai', index_options: 'offsets',  boost: 10
+          indexes :journal_name, analyzer: 'thai', index_options: 'offsets',  boost: 10
+          indexes :journal_file_path, analyzer: 'thai', index_options: 'offsets',  boost: 10
           # indexes :coordinates, type: 'geo_point'
           # indexes :company_number
           # indexes :main_phone_number, type: 'string',  index: :not_analyzed

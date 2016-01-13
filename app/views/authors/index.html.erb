@@ -5,10 +5,10 @@
     <li class="active">Data</li>
   </ol> -->
   <div class="row">
-    <%= link_to '+ Add Journal' , new_journal_path , class: 'btn btn-primary pull-right' %>
+    <%= link_to '+ Add Author' , new_author_path , class: 'btn btn-primary pull-right' %>
   </div>
 
-  <%= form_tag journals_path, method: :get do %>
+<!--   <%= form_tag authors_path, method: :get do %>
     <div class="row" style="margin-bottom:18px;">
       <div class="col-md-9">
          <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search'%>
@@ -18,25 +18,23 @@
         <%= button_tag 'Search',:class => "btn btn-success", name: "btn-search" %>
       </div>
     </div>
-  <% end %>
+  <% end %> -->
 
   <div class="row">
     <table class="table table-striped">
       <thead>
         <th>No.</th>
         <th>Name</th>
-        <th>Path</th>
         <th>Tools</th>
       </thead>
       <tbody>
-        <% @journals.each_with_index do |journal,index| %>
+        <% @authors.each_with_index do |author,index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td class="col-md-5"><%= link_to journal.journal_name, journal_issues_path(journal.id) %></td>
-          <td class="col-md-5"><%= journal.journal_file_path %></td>
+          <td class="col-md-5"><%= link_to author.author_name, author_path(author.id) %></td>
           <td>
-            <%= link_to 'Edit' ,edit_journal_path(journal.id), class: "btn btn-warning" %>
-            <%= link_to 'Delete', journal_path(journal.id),
+            <%= link_to 'Edit' ,edit_author_path(author.id), class: "btn btn-warning" %>
+            <%= link_to 'Delete', author_path(author.id),
                     method: :delete,
                     data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
           </td>
