@@ -25,15 +25,13 @@
       <thead>
         <th>No.</th>
         <th>Name</th>
-        <th>Path</th>
         <th>Tools</th>
       </thead>
       <tbody>
         <% @journals.each_with_index do |journal,index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td class="col-md-5"><%= link_to journal.journal_name, journal_issues_path(journal.id) %></td>
-          <td class="col-md-5"><%= journal.journal_file_path %></td>
+          <td class="col-md-5"><%= link_to journal.journal_name, journal_years_path(journal.id) %></td>
           <td>
             <%= link_to 'Edit' ,edit_journal_path(journal.id), class: "btn btn-warning" %>
             <%= link_to 'Delete', journal_path(journal.id),

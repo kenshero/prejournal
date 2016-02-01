@@ -29,7 +29,7 @@ gem 'rack-cors', :require => 'rack/cors'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'responders', '~> 2.0'
-
+gem 'seed_dump'
 
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
@@ -45,6 +45,7 @@ gem 'capistrano-rbenv', github: "capistrano/rbenv"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'pry', '~> 0.10.3'
   gem 'byebug'
 end
 

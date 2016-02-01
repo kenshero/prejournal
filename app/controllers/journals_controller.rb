@@ -43,7 +43,7 @@ class JournalsController < ApplicationController
 
   private
     def journal_params
-      params.require(:journal).permit(:journal_name_th)
+      params.require(:journal).permit(:journal_name)
     end
 
     def journal_id

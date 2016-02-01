@@ -10,25 +10,36 @@ module Api
       def search
         text_search = params[:textSearch]
         page   = params[:page].to_i
-        @data   = Article.article_search(text_search,page).records
+        @data   = Article.article_search(text_search,page)
         @amount = Article.article_search(text_search,page).results.total
-        puts @amount
+        @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
+        @years_facet = @data.response["aggregations"]["by_year"]["buckets"]
+        # puts @amount
         # binding.pry
         # puts @data.first.inspect
-        arr_json = []
-        @data.each do | article |
-          @issue = article.issue
-          @journal = @issue.journal
-          @article_json = JSON.parse(article.to_json)
-          @issue_json = JSON.parse(@issue.to_json)
-          @journal_json = JSON.parse(@journal.to_json)
+        # arr_json = []
+        # @data.each do | article |
+        #   @issue = article.issue
+        #   @year = @issue.year
+        #   @journal = @year.journal
+        #   # binding.pry
 
-          issue_journal = @issue_json.merge!(@article_json)
-          merge_data = @journal_json.merge!(issue_journal)
-          arr_json << merge_data
-        end
+        #   @article_json = JSON.parse(article.to_json)
+        #   @issue_json = JSON.parse(@issue.to_json)
+        #   @year_json = JSON.parse(@year.to_json)
+        #   @journal_json = JSON.parse(@journal.to_json)
+
+        #   year_json = @year_json.merge!(@issue_json)
+        #   issue_journal = year_json.merge!(@article_json)
+        #   merge_data = @journal_json.merge!(issue_journal)
+        #   arr_json << merge_data
+        # end
         # puts arr_json
-        @response = {data: arr_json, amount: @amount}
+        @response = {  data: @data, 
+                       amount: @amount,
+                       journals_facet: @journals_facet,
+                       years_facet: @years_facet
+                    }
         respond_with @response
       end
 

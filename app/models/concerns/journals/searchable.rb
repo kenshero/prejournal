@@ -10,7 +10,7 @@ module Journals
               multi_match: {
                 query: text_search,
                 type: "phrase_prefix",
-                fields: ['journal_name','journal_file_path']
+                fields: ['journal_name']
               }
             }
           }
@@ -24,7 +24,7 @@ module Journals
               multi_match: {
                 query: text_search,
                 type: "phrase_prefix",
-                fields: ['journal_name','journal_file_path']
+                fields: ['journal_name']
               }
             }
           }

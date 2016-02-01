@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'years/index'
+
+  get 'years/new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -13,8 +17,10 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :journals do
-    resources :issues do
-      resources :articles
+    resources :years do
+      resources :issues do
+        resources :articles
+      end
     end
   end
 

@@ -1,8 +1,9 @@
 class CreateIssues < ActiveRecord::Migration
   def change
     create_table :issues do |t|
-      t.string :year
-      t.references :journal, index: true, foreign_key: true
+      t.string :number
+      t.string :volume
+      t.references :year, index: true, foreign_key: true
 
       t.timestamps null: false
     end

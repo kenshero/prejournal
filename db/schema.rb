@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113142002) do
+ActiveRecord::Schema.define(version: 20160114103859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,12 @@ ActiveRecord::Schema.define(version: 20160113142002) do
   add_index "article_authors", ["author_id"], name: "index_article_authors_on_author_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
-    t.string   "article_name_th"
-    t.string   "article_name_eng"
+    t.string   "article_name"
     t.integer  "issue_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pdf_path"
+    t.string   "keywords",     default: [],              array: true
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -44,23 +45,32 @@ ActiveRecord::Schema.define(version: 20160113142002) do
   end
 
   create_table "issues", force: :cascade do |t|
-    t.string   "year"
-    t.integer  "journal_id"
+    t.string   "number"
+    t.string   "volume"
+    t.integer  "year_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "issues", ["journal_id"], name: "index_issues_on_journal_id", using: :btree
+  add_index "issues", ["year_id"], name: "index_issues_on_year_id", using: :btree
 
   create_table "journals", force: :cascade do |t|
     t.string   "journal_name"
-    t.string   "journal_file_path"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
+
+  create_table "years", force: :cascade do |t|
+    t.string   "journal_year"
+    t.integer  "journal_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "years", ["journal_id"], name: "index_years_on_journal_id", using: :btree
 
   add_foreign_key "article_authors", "articles"
   add_foreign_key "article_authors", "authors"
-  add_foreign_key "articles", "issues"
-  add_foreign_key "issues", "journals"
+  add_foreign_key "issues", "years"
+  add_foreign_key "years", "journals"
 end
