@@ -14,6 +14,7 @@ GIT
       activesupport (> 3)
       elasticsearch (> 0.4)
       hashie
+    elasticsearch-rails (0.1.8)
 
 GEM
   remote: https://rubygems.org/
@@ -214,6 +215,7 @@ DEPENDENCIES
   capistrano-rbenv!
   coffee-rails (~> 4.1.0)
   elasticsearch-model!
+  elasticsearch-rails!
   jbuilder (~> 2.0)
   jquery-rails
   pg

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # get 'journals' => 'journals#index'
       get 'journals/:textSearch/page/:page' => 'journals#search'
-      # get 'issues/:journal_id' => 'journals#search_issues'
+      get 'journals/suggestion/:textSuggest' => 'journals#suggestion'
       # get 'articles/:issue_id' => 'journals#search_articles'
       # get 'getarticle/:article_id' => 'journals#get_article'
       # get 'getauthor/:author_id' => 'journals#get_author'

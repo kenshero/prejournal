@@ -31,19 +31,15 @@ module Articles
         )
       end
 
-      def self.article_search_facet(text_search)
-        __elasticsearch__.search(
-          {
-            from: 0 ,size: 10000,
-            query: {
-              multi_match: {
-                query: text_search,
-                type: "phrase_prefix",
-                fields: ['article_name','journal_name']
+      def self.article_suggestion(text_search)
+        __elasticsearch__.client.suggest(index: Article.index_name, body: {
+          suggestions: {
+              text: text_search,
+              completion: {
+                  field: 'name_suggest'
               }
-            }
           }
-        )
+        })
       end
 
       def as_indexed_json(options={})
@@ -66,6 +62,13 @@ module Articles
 
         # binding.pry
         # s
+        suggester = {
+          name_suggest: {
+            input: [
+              self.article_name,self.issue.year.journal.journal_name
+            ]
+          }
+        }
 
         @article_issue = @article.merge(@issue)
         @article_issue_year = @article_issue.merge(@year)
@@ -73,9 +76,9 @@ module Articles
 
         @result.as_json(
           only: [:article_name,:keywords,:journal_name,:number,:journal_year]
-        )
-      end
+        ).merge(suggester)
 
+      end
      end
   end
 end

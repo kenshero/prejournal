@@ -43,6 +43,13 @@ module Api
         respond_with @response
       end
 
+      def suggestion
+        text_suggest = params[:textSuggest]
+        @data   = Article.article_suggestion(text_suggest)
+        @response = {  data: @data }
+        respond_with @response
+      end
+
       # def search_issues
       #   journal_id = params[:journal_id]
       #   @journals  = Journal.find(journal_id)
