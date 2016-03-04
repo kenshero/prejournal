@@ -1,4 +1,5 @@
 class IssuesController < ApplicationController
+  before_filter :authorize
   def index
     @journal = get_journal_id
     @year    = get_year_id

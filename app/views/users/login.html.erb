@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag    'users', media: 'all', 'data-turbolinks-track' => true %>
+  <div class="container">
+    <div class="form-login">
+      <div class="head-form-login">
+        <h2>Login</h2> 
+      </div>
+      <div class="body-form-login">
+        <%= form_tag logged_path do %>
+          <div class="field panel-label">
+            <%= label_tag :username , nil, class: "label-head" %><br />
+            <%= text_field_tag :username , nil, class: "form-control", autofocus: true %>
+          </div>
+
+          <div class="field panel-label">
+            <%= label_tag :password, nil , class: "label-head" %>
+            <%= password_field_tag :password , nil, class: "form-control", autocomplete: "off" %>
+          </div>
+
+          <div class="actions">
+            <%= submit_tag "Login" ,class: "btn-login" %>
+          </div>
+        <% end %>
+      </div>
+    </div> <!-- form-login -->
+  </div>

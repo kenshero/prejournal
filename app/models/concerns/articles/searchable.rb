@@ -17,16 +17,22 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
-            } #facet
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 0
+                }
+              }
+            } #agg
           }
         )
       end
@@ -41,6 +47,78 @@ module Articles
           }
         })
       end
+
+      def self.article_facet(text_search,text_facet,page)
+        __elasticsearch__.search(
+          {
+           from: (page-1)*50 ,size: 50,
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: text_search,
+                    type: "phrase_prefix",
+                    fields: ["article_name","journal_name"]
+                  }
+                }, #query
+                filter: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          "journal_name.raw": text_facet[0]
+                        }
+                      },
+                      {
+                        terms: {
+                          "journal_year.raw": text_facet[1]
+                        }
+                      },
+                      {
+                        terms: {
+                          "keywords.raw": text_facet[2]
+                        }
+                      }
+                    ]
+                  }
+                } #filter
+              }
+            }
+          }
+        )
+      end
+
+      # def self.article_facet(text_search,text_facet,page)
+      #   __elasticsearch__.search(
+      #     {
+      #      from: (page-1)*50 ,size: 50,
+      #       query: {
+      #         bool: {
+      #           must: [
+      #             {
+      #               multi_match: {
+      #                 query: text_search,
+      #                 type: "phrase_prefix",
+      #                 fields: ["article_name","journal_name"]
+      #               }
+      #             },
+      #             {
+      #               terms: {
+      #                 "journal_name.raw": text_facet[0]
+      #               }
+      #             },
+      #             {
+      #               terms: {
+      #                 "journal_year.raw": text_facet[1]
+      #               }
+      #             }
+      #           ]
+      #         }
+      #       }
+      #     }
+      #   )
+      # end
+
 
       def as_indexed_json(options={})
         @article = {

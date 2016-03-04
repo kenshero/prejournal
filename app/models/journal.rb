@@ -6,4 +6,5 @@ class Journal < ActiveRecord::Base
   include Journals::Mapping
 
   has_many :years, dependent: :destroy
+
 end

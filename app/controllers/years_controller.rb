@@ -1,4 +1,5 @@
 class YearsController < ApplicationController
+  before_filter :authorize
   def index
     @journal = get_journal_id
     @years   = @journal.years.all

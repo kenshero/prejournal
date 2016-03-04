@@ -1,9 +1,12 @@
+<%= render 'layouts/navbar' %>
+
 <div class="container">
-<!--   <ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Library</a></li>
-    <li class="active">Data</li>
-  </ol> -->
+  <ol class="breadcrumb">
+    <li><%= link_to  'Journals' , journals_path %></li>
+    <li><%= link_to  'Years' , journal_years_path %></li>
+    <li><%= link_to  'Issues' , journal_year_issues_path %></li>
+    <li class="active">Articles</li>
+  </ol>
   <div class="row">
     <%= link_to '+ Add Article' , new_journal_year_issue_article_path , class: 'btn btn-primary pull-right' %>
   </div>

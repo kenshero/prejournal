@@ -28,7 +28,7 @@ module Ejournal
         origins '*'
         resource '*',
          :headers => :any, 
-         :methods => [:get, :options]
+         :methods => [:get,:post, :options]
 
       end
     end

@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_filter :authorize
   def index
     @journal = get_journal_id
     @year    = get_year_id
@@ -33,6 +34,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    # render plain: article_params
     @journal = get_journal_id
     @year    = get_year_id
     @issue   = get_issue_id
@@ -56,7 +58,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:article_name)
+      params.require(:article).permit(:article_name,{ keywords: [] } )
     end
 
     def get_journal_id

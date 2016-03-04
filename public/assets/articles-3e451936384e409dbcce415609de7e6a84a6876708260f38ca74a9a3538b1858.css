@@ -1,0 +1,12 @@
+/* line 4, /home/kenshero/tutorial/ror/ejournal/app/assets/stylesheets/articles.sass */
+.form-word {
+  width: 300px;
+  margin-bottom: 9px;
+  margin-right: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

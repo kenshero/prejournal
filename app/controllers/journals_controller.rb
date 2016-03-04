@@ -1,4 +1,5 @@
 class JournalsController < ApplicationController
+  before_filter :authorize
   def index
     if params[:q].present?
       @journals = Journal.journal_back_cart_search(params[:q]).results

@@ -1,5 +1,14 @@
+<%= render 'layouts/navbar' %>
+<%= stylesheet_link_tag 'articles', media: 'all', 'data-turbolinks-track' => true %>
+
 <div class="container">
-  
+  <ol class="breadcrumb">
+    <li><%= link_to  'Journals' , journals_path %></li>
+    <li><%= link_to  'Years' , journal_years_path %></li>
+    <li><%= link_to  'Issues' , journal_year_issues_path %></li>
+    <li><%= link_to  'Articles' , journal_year_issue_articles_path %></li>
+    <li class="active">Save Article</li>
+  </ol>  
   <% if @article.errors.any? %>
     <div class="alert alert-danger alert-dismissible fade in">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -19,10 +28,32 @@
       <%= f.text_field :article_name ,class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <label>Keyword</label>
-      Comeing Soon<!-- <input type="text" class="form-control" disabled="true"> -->
-    </div>
+    <!-- ///////////////////////// keywords //////////////////////// -->
+    <% if @article.persisted? %>
+      <div class="form-group">
+        <div class="field_keyword">
+          <label for="words">Keyword :</label>
+          <a href="#" class="add_field_keyword">Add More Fields</a>
+          <% @article.keywords.each do |keyword| %>
+            <div>
+              <input type="text" name="article[keywords][]" id="doc_words_" value="<%= keyword %>"
+              class="form-word" /><a href="#" class="remove_field_keyword">Remove</a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="form-group">
+        <div class="field_keyword">
+          <label for="words">Keywords :</label>
+          <div>
+            <a href="#" class="add_field_keyword">Add More Fields</a>
+            <br>
+            <input type="text" name="article[keywords][]" id="doc_words_" value=""  class="form-word">
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <div class="form-group">
       <label>Author</label>

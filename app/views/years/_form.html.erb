@@ -1,5 +1,11 @@
+<%= render 'layouts/navbar' %>
+
 <div class="container">
-  
+  <ol class="breadcrumb">
+    <li><%= link_to  'Journals' , journals_path %></li>
+    <li><%= link_to  'Years' , journal_years_path %></li>
+    <li class="active">Save Year</li>
+  </ol>  
   <% if @year.errors.any? %>
     <div class="alert alert-danger alert-dismissible fade in">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

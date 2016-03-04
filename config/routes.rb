@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'years/index'
-
-  get 'years/new'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -25,13 +21,18 @@ Rails.application.routes.draw do
   end
 
   resources :authors
+  resources :users
+  get 'login'    => 'users#login'
+  get 'users/:id/edit_admin' => 'users#edit_admin', as: :edit_admin
+  post 'logged'  => 'users#logged'
+  delete 'destroy_user_session' => 'users#destroy_user_session'
 
   namespace :api do
     namespace :v1 do
       # get 'journals' => 'journals#index'
-      get 'journals/:textSearch/page/:page' => 'journals#search'
+      get 'journals/:textSearch/page/:page'  => 'journals#search'
       get 'journals/suggestion/:textSuggest' => 'journals#suggestion'
-      # get 'articles/:issue_id' => 'journals#search_articles'
+      post 'journals/:textSearch/facet/page/:page' => 'journals#facet'
       # get 'getarticle/:article_id' => 'journals#get_article'
       # get 'getauthor/:author_id' => 'journals#get_author'
     end
