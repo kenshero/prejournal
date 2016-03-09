@@ -64,7 +64,7 @@ module Api
           @amount = Article.article_search(text_search,page).results.total
           @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
           @years_facet = @data.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
+          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
           @response = { data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,

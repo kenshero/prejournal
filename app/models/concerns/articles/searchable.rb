@@ -73,12 +73,12 @@ module Articles
                         terms: {
                           "journal_year.raw": text_facet[1]
                         }
-                      },
-                      {
-                        terms: {
-                          "keywords.raw": text_facet[2]
-                        }
                       }
+                      # {
+                      #   terms: {
+                      #     "keywords.raw": text_facet[2]
+                      #   }
+                      # }
                     ]
                   }
                 } #filter
