@@ -73,12 +73,47 @@ module Articles
                         terms: {
                           "journal_year.raw": text_facet[1]
                         }
+                      },  
+                      {
+                        terms: {
+                          "keywords.raw": text_facet[2]
+                        }
                       }
-                      # {
-                      #   terms: {
-                      #     "keywords.raw": text_facet[2]
-                      #   }
-                      # }
+                    ]
+                  }
+                } #filter
+              }
+            }
+          }
+        )
+      end
+
+      def self.article_facet_not_keywords(text_search,text_facet,page)
+        __elasticsearch__.search(
+          {
+           from: (page-1)*50 ,size: 50,
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: text_search,
+                    type: "phrase_prefix",
+                    fields: ["article_name","journal_name"]
+                  }
+                }, #query
+                filter: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          "journal_name.raw": text_facet[0]
+                        }
+                      },
+                      {
+                        terms: {
+                          "journal_year.raw": text_facet[1]
+                        }
+                      }
                     ]
                   }
                 } #filter
@@ -138,7 +173,7 @@ module Articles
           journal_name: self.issue.year.journal.journal_name
         }
 
-        # binding.pry
+        
         # s
         suggester = {
           name_suggest: {
@@ -152,6 +187,7 @@ module Articles
         @article_issue_year = @article_issue.merge(@year)
         @result = @article_issue_year.merge(@journal)
 
+        # binding.pry
         @result.as_json(
           only: [:article_name,:keywords,:journal_name,:number,:journal_year]
         ).merge(suggester)

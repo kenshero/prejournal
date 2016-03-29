@@ -15,4 +15,5 @@ class Article < ActiveRecord::Base
     search_keywords = keywords
     search_keywords.delete_if {|keyword| keyword == "" }
   end
+
 end
