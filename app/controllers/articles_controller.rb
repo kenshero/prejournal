@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
+  respond_to :json
   before_filter :authorize
+  autocomplete :author, :author_name
   def index
     @journal = get_journal_id
     @year    = get_year_id
@@ -15,6 +17,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    # render plain: article_params
     @journal = get_journal_id
     @year    = get_year_id
     @issue   = get_issue_id
@@ -56,9 +59,21 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def autocomplete_article_name
+    if params[:term]
+      text_search = params[:term]
+      # puts text_search
+      @authors_search = Author.where("author_name LIKE ?" , "%#{text_search}%").limit(7)
+      puts @authors_search[0].author_name
+      respond_with(@authors_search)
+      else
+        puts "sss"
+    end
+  end
+
   private
     def article_params
-      params.require(:article).permit(:article_name,{ keywords: [] } )
+      params.require(:article).permit(:article_name,{ keywords: [] , author_name: [] , author_ids: []})
     end
 
     def get_journal_id
@@ -76,4 +91,6 @@ class ArticlesController < ApplicationController
     def get_article_id
       @issue.articles.find(params.require(:id))
     end
+
+
 end

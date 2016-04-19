@@ -182,12 +182,50 @@
 #   end
 # end
 
-open("/home/kenshero/newkeywords.txt") do |article_keyword|
-  article_keyword.read.each_line do |articlekeyword|
-    article,keyword = articlekeyword.split("/")
-    # puts "#{article} --- #{keyword}"
-    article_point = Article.find_by(article_name: article)
-    puts "#{article_point.article_name} -- #{keyword}"
+# open("/home/kenshero/newkeywords.txt") do |article_keyword|
+#   count_article = 0
+#   article_keyword.read.each_line do |articlekeyword|
+#     article,keyword = articlekeyword.split("/")
+#     # puts "#{article} --- #{keyword}"
+#     article_point = Article.find_by(article_name: article)
+#     # puts "#{article_point.inspect}"
+#     if article_point.nil?
+#       puts "nil5555"
+#     else
+#       count_article = count_article + 1
+#       article_point.keywords << keyword
+#       article_point.save
+#       puts "#{article_point.inspect}"
+#       puts "#{article_point.keywords}"
+#     end
+#   end
+#   puts " Result Count Keyword = #{count_article}"
+# end
 
-  end
-end
+# open("/home/kenshero/Downloads/new/e_journal_author (1).csv") do |authors|
+#   authors.read.each_line do |author|
+#     id,name = author.gsub(/["|]/,'').split(";")
+#     puts "#{name}"
+#     Author.create!(author_name: name)
+#   end
+# end
+
+# open("/home/kenshero/newauthors.txt") do |article_author|
+#   count_article = 0
+#   article_author.read.each_line do |articleauthor|
+#     article,author,role = articleauthor.split("//")
+#     # puts "#{article} --- #{keyword}"
+#     article_point = Article.find_by(article_name: article)
+#     # puts "#{article_point.inspect}"
+#     if article_point.nil?
+#       puts "nil5555"
+#     else
+#       count_article = count_article + 1
+#       article_point.author_name << author
+#       article_point.save
+#       puts "#{article_point.inspect}"
+#       puts "#{article_point.author_name}"
+#     end
+#   end
+#   puts " Result Count Keyword = #{count_article}"
+# end

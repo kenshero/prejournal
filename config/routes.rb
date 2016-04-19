@@ -15,13 +15,18 @@ Rails.application.routes.draw do
   resources :journals do
     resources :years do
       resources :issues do
-        resources :articles
+        resources :articles 
       end
     end
   end
 
+  resources :articles do
+    get :autocomplete_article_name, :on => :collection
+  end
+
   resources :authors
   resources :users
+
   get 'login'    => 'users#login'
   get 'users/:id/edit_admin' => 'users#edit_admin', as: :edit_admin
   post 'logged'  => 'users#logged'

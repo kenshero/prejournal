@@ -12,12 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
 //= require jquery.turbolinks
+//= require autocomplete-rails
+//= require jquery_nested_form
 
 $(document).ready(function(){
+
   var field_keyword      = $(".field_keyword"); //Fields field_keyword
   var add_button_keyword = $(".add_field_keyword"); //Add button ID
   
@@ -28,4 +32,62 @@ $(document).ready(function(){
   $(field_keyword).on("click",".remove_field_keyword", function(e){ //user click on remove text
       e.preventDefault(); $(this).parent('div').remove();
   })
+
+  //////// author ////////////
+  var author_field      = $(".author_field"); //Fields field_keyword
+  var add_field_author = $(".add_field_author"); //Add button ID
+  
+  $(add_field_author).on("click", null, function () {
+    count_author++;
+    $(author_field).append('<div><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query " /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" ><a href="#" class="remove_field_author">Remove</a></div>'); //add input box
+     action_autocomeplete();
+  });
+
+  $(author_field).on("click",".remove_field_author", function(e){ //user click on remove text
+      e.preventDefault(); $(this).parent('div').remove();
+  })
+
+  action_autocomeplete();
+  // console.log(count_author);
+  /////// auto-complete ///////
+
+  function action_autocomeplete(){
+    for(var i = 0 ; i < count_author ; i++){
+      $('#author_'+count_author).autocomplete({
+        source : function (request, response) {
+
+          var text_search = $("#author_" + i ).val();
+          console.log($("#author_" + i ));
+          console.log(text_search);
+
+          $.ajax({
+            dataType: "json",
+            type: 'Get',
+            url: "/articles/autocomplete_article_name?term=" + text_search,
+            success: function(data){
+              // console.log(data);
+              response($.map( data, function(item) {
+                return {
+                    label: item.author_name,
+                    value: item.id
+                };
+              })); 
+            }
+          });
+        },
+        select: function( event, ui ) {
+          console.log(ui);
+          $("#author_" + i).val( ui.item.label);
+          $("#val_author_" + i ).val( ui.item.value);
+          return false;
+        },
+        focus: function(event, ui) {
+          $("#author_" + i ).val(ui.item.label);
+          $("#val_author_" + i ).val( ui.item.value);
+          return false;
+        }
+      });
+    } //for
+  }
+
 });

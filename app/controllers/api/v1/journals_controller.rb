@@ -58,44 +58,120 @@ module Api
         text_search = params[:textSearch]
         page = params[:page].to_i
 
-        if text_facet.nil?
-          puts "GGGGGGGGGGGGGGGGGG"
-          @data   = Article.article_search(text_search,page)
-          @amount = Article.article_search(text_search,page).results.total
-          @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
-          @years_facet = @data.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
+        ################ textfacet processing ################
+        if text_facet[0].length == 0
+          @journal_import_facet = []
+          data_facet     = Article.article_search(text_search,page)
+          journals_key = data_facet.response["aggregations"]["by_journal"]["buckets"]
+          journals_key.each do |key|
+            @journal_import_facet << key[:key]
+          end 
+          text_facet[0] = @journal_import_facet
+        end
+
+        if text_facet[1].length == 0
+          @year_import_facet = []
+          data_facet     = Article.article_search(text_search,page)
+          years_key = data_facet.response["aggregations"]["by_year"]["buckets"]
+          years_key.each do |key|
+            @year_import_facet << key[:key]
+          end 
+          text_facet[1] = @year_import_facet
+        end
+
+        # if text_facet[2].length == 0
+        #   @keywords_import_facet = []
+        #   data_facet     = Article.article_search(text_search,page)
+        #   keywords_key = data_facet.response["aggregations"]["by_keywords"]["buckets"]
+        #   keywords_key.each do |key|
+        #     @keywords_import_facet << key[:key]
+        #   end 
+        #   text_facet[2] = @keywords_import_facet
+        #   text_facet[2] << ""
+        # end
+
+        # if text_facet[3].length == 0
+        #   @author_import_facet = []
+        #   data_facet     = Article.article_search(text_search,page)
+        #   authors_key = data_facet.response["aggregations"]["by_authors"]["buckets"]
+        #   authors_key.each do |key|
+        #     @author_import_facet << key[:key]
+        #   end 
+        #   text_facet[3] = @author_import_facet
+        # end
+
+        ################ textfacet processing ################
+        # puts text_facet.inspect
+
+        if text_facet[2].length == 0 && text_facet[3].length == 0 && text_facet[0].length != 0 && text_facet[1].length != 0
+          puts "ALLLLLLLLLLLLLLLLLLLLLLLLL"
+          @data   = Article.article_search_without_keyword_author(text_search,text_facet,page)
+          @amount = Article.article_search_without_keyword_author(text_search,text_facet,page).results.total
+          @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
           @response = { data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,
                         years_facet: @years_facet,
-                        keywords_facet: @keywords_facet
+                        keywords_facet: @keywords_facet,
+                        authors_facet: @authors_facet
                       }
-        else
-          if text_facet[2].length == 0
-            @data   = Article.article_facet_not_keywords(text_search,text_facet,page)
-            @amount = Article.article_facet_not_keywords(text_search,text_facet,page).results.total
-            @data_facet = Article.article_search(text_search,page)
-            @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-            @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-            @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          else
-            @data   = Article.article_facet(text_search,text_facet,page)
-            @amount = Article.article_facet(text_search,text_facet,page).results.total
-            @data_facet = Article.article_search(text_search,page)
-            @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-            @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-            @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          end
+        elsif text_facet[2].length != 0 && text_facet[3].length != 0
+          puts "FULL"
+          @data   = Article.article_search_all(text_search,text_facet,page)
+          @amount = Article.article_search_all(text_search,text_facet,page).results.total
+          @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          @response = { data: @data, 
+                        amount: @amount,
+                        journals_facet: @journals_facet,
+                        years_facet: @years_facet,
+                        keywords_facet: @keywords_facet,
+                        authors_facet: @authors_facet
+                      }
+        elsif text_facet[2].length != 0 && text_facet[3].length == 0
+          puts "BBBBBBBBBBBBBBBBBB"
+          @data   = Article.article_search_without_keywords(text_search,text_facet,page)
+          @amount = Article.article_search_without_keywords(text_search,text_facet,page).results.total
+          @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          @response = { data: @data, 
+                        amount: @amount,
+                        journals_facet: @journals_facet,
+                        years_facet: @years_facet,
+                        keywords_facet: @keywords_facet,
+                        authors_facet: @authors_facet
+                      }
+        elsif text_facet[3].length != 0 && text_facet[2].length == 0
+          puts "CCCCCCCCCCCCCCCCCCC"
+          @data   = Article.article_search_without_authors(text_search,text_facet,page)
+          @amount = Article.article_search_without_authors(text_search,text_facet,page).results.total
+          @data_facet = Article.article_search(text_search,page)
+          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
           # puts @data
           # # puts "#{@data}  ssss #{@journals_facet}"
           # # @journals  = Journal.find(journal_id)
           # # @issues    = @journals.issues.all
-          @response = { data: @data, 
+          puts @data
+          @response = { 
+                        data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,
                         years_facet: @years_facet,
-                        keywords_facet: @keywords_facet
+                        keywords_facet: @keywords_facet,
+                        authors_facet: @authors_facet
                       }
         end #endif
         render json: @response
@@ -103,3 +179,7 @@ module Api
     end
   end
 end
+
+# if text_facet[0] != 0 && text_facet[1] == 0 && text_facet[2] == 0 && text_facet[3] == 0
+  
+# end

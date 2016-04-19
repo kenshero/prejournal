@@ -10,7 +10,7 @@ module Articles
               multi_match: {
                 query: text_search,
                 type: "phrase_prefix",
-                fields: ['article_name','journal_name']
+                fields: ['article_name','author_name','journal_name','keywords']
               }
             },
             aggs: {
@@ -29,6 +29,12 @@ module Articles
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
+                   size: 0
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
                    size: 0
                 }
               }
@@ -58,7 +64,7 @@ module Articles
                   multi_match: {
                     query: text_search,
                     type: "phrase_prefix",
-                    fields: ["article_name","journal_name"]
+                    fields: ['article_name','author_name','journal_name','keywords']
                   }
                 }, #query
                 filter: {
@@ -78,6 +84,11 @@ module Articles
                         terms: {
                           "keywords.raw": text_facet[2]
                         }
+                      },  
+                      {
+                        terms: {
+                          "author_name.raw": text_facet[3]
+                        }
                       }
                     ]
                   }
@@ -88,7 +99,7 @@ module Articles
         )
       end
 
-      def self.article_facet_not_keywords(text_search,text_facet,page)
+      def self.article_search_without_keyword_author(text_search,text_facet,page)
         __elasticsearch__.search(
           {
            from: (page-1)*50 ,size: 50,
@@ -98,7 +109,7 @@ module Articles
                   multi_match: {
                     query: text_search,
                     type: "phrase_prefix",
-                    fields: ["article_name","journal_name"]
+                    fields: ['article_name','author_name','journal_name','keywords']
                   }
                 }, #query
                 filter: {
@@ -123,37 +134,130 @@ module Articles
         )
       end
 
-      # def self.article_facet(text_search,text_facet,page)
-      #   __elasticsearch__.search(
-      #     {
-      #      from: (page-1)*50 ,size: 50,
-      #       query: {
-      #         bool: {
-      #           must: [
-      #             {
-      #               multi_match: {
-      #                 query: text_search,
-      #                 type: "phrase_prefix",
-      #                 fields: ["article_name","journal_name"]
-      #               }
-      #             },
-      #             {
-      #               terms: {
-      #                 "journal_name.raw": text_facet[0]
-      #               }
-      #             },
-      #             {
-      #               terms: {
-      #                 "journal_year.raw": text_facet[1]
-      #               }
-      #             }
-      #           ]
-      #         }
-      #       }
-      #     }
-      #   )
-      # end
+      def self.article_search_without_keywords(text_search,text_facet,page)
+        __elasticsearch__.search(
+          {
+           from: (page-1)*50 ,size: 50,
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: text_search,
+                    type: "phrase_prefix",
+                    fields: ['article_name','author_name','journal_name','keywords']
+                  }
+                }, #query
+                filter: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          "journal_name.raw": text_facet[0]
+                        }
+                      },
+                      {
+                        terms: {
+                          "journal_year.raw": text_facet[1]
+                        }
+                      },
+                      {
+                        terms:{
+                          "author_name.raw": text_facet[2]
+                        }
+                      }
+                    ]
+                  }
+                } #filter
+              }
+            }
+          }
+        )
+      end
 
+      def self.article_search_without_authors(text_search,text_facet,page)
+        __elasticsearch__.search(
+          {
+           from: (page-1)*50 ,size: 50,
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: text_search,
+                    type: "phrase_prefix",
+                    fields: ['article_name','author_name','journal_name','keywords']
+                  }
+                }, #query
+                filter: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          "journal_name.raw": text_facet[0]
+                        }
+                      },
+                      {
+                        terms: {
+                          "journal_year.raw": text_facet[1]
+                        }
+                      },
+                      {
+                        terms:{
+                          "keywords.raw": text_facet[3]
+                        }
+                      }
+                    ]
+                  }
+                } #filter
+              }
+            }
+          }
+        )
+      end
+
+      def self.article_search_all(text_search,text_facet,page)
+        __elasticsearch__.search(
+          {
+           from: (page-1)*50 ,size: 50,
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: text_search,
+                    type: "phrase_prefix",
+                    fields: ['article_name','author_name','journal_name','keywords']
+                  }
+                }, #query
+                filter: {
+                  bool: {
+                    must: [
+                      {
+                        terms: {
+                          "journal_name.raw": text_facet[0]
+                        }
+                      },
+                      {
+                        terms: {
+                          "journal_year.raw": text_facet[1]
+                        }
+                      },
+                      {
+                        terms:{
+                          "author_name.raw": text_facet[2]
+                        }
+                      },
+                      {
+                        terms:{
+                          "keywords.raw": text_facet[3]
+                        }
+                      }
+                    ]
+                  }
+                } #filter
+              }
+            }
+          }
+        )
+      end
 
       def as_indexed_json(options={})
         @article = {
@@ -172,9 +276,13 @@ module Articles
         @journal = {
           journal_name: self.issue.year.journal.journal_name
         }
-
         
-        # s
+        # @authors_index = []
+        # self.author_name.each {|author| @authors_index << author.author_name}
+        @author = {
+          author_name: self.author_name
+        }
+
         suggester = {
           name_suggest: {
             input: [
@@ -185,11 +293,12 @@ module Articles
 
         @article_issue = @article.merge(@issue)
         @article_issue_year = @article_issue.merge(@year)
-        @result = @article_issue_year.merge(@journal)
+        @article_authors =  @article_issue_year.merge(@author)
+        @result = @article_authors.merge(@journal)
 
         # binding.pry
         @result.as_json(
-          only: [:article_name,:keywords,:journal_name,:number,:journal_year]
+          only: [:article_name,:keywords,:author_name,:journal_name,:number,:journal_year]
         ).merge(suggester)
 
       end

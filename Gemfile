@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'chosen-rails'
+gem "nested_form"
+gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
@@ -32,6 +35,8 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'bcrypt', '~> 3.1.7'
 gem 'responders', '~> 2.0'
 gem 'seed_dump'
+gem 'will_paginate-bootstrap'
+gem 'rails4-autocomplete'
 
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'

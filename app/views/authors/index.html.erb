@@ -15,10 +15,12 @@
         <th>Tools</th>
       </thead>
       <tbody>
+        <% number_page = params[:page].to_i %>
+        <% number_page = 1 if number_page == 0 %>
         <% @authors.each_with_index do |author,index| %>
         <tr>
-          <td><%= index + 1 %></td>
-          <td class="col-md-5"><%= link_to author.author_name, author_path(author.id) %></td>
+          <td><%= index + (100*(number_page-1)) +1 %></td>
+          <td class="col-md-5"><%= author.author_name %></td>
           <td>
             <%= link_to 'Edit' ,edit_author_path(author.id), class: "btn btn-warning" %>
             <%= link_to 'Delete', author_path(author.id),
@@ -29,5 +31,8 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="row">
+    <%= will_paginate @authors, renderer: BootstrapPagination::Rails %>
   </div>
 </div>

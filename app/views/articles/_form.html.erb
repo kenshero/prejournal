@@ -1,6 +1,7 @@
 <%= render 'layouts/navbar' %>
 <%= stylesheet_link_tag 'articles', media: 'all', 'data-turbolinks-track' => true %>
 
+
 <div class="container">
   <ol class="breadcrumb">
     <li><%= link_to  'Journals' , journals_path %></li>
@@ -21,7 +22,7 @@
   <% end %>
 
   <div class="row">
-    <%= form_for [@journal,@year,@issue ,@article] do |f| %>
+    <%= nested_form_for [@journal,@year,@issue ,@article] do |f| %>
 
     <div class="form-group">
       <label>Article Name</label>
@@ -55,13 +56,45 @@
       </div>
     <% end %>
 
-    <div class="form-group">
-      <label>Author</label>
-      Comeing Soon<!-- <input type="text" class="form-control" disabled="true"> -->
-    </div>
+<!-- //////////// Author ////////////// -->
+    <% @count_author = 1 %>
+    <% if @article.persisted? %>
+      <label for="words">Author :</label>
+      <a href="#" class="add_field_author">Add More Fields</a>
+      <div class="form-group">
+        <div class="author_field">
+          <% @article.author_name.each do |author| %>
+              <div>
+              <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query" %> 
+              <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'') + "\r\n") %>
+              <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
+              <label>Role :</label>
+              <input type="radio"> 100
+              <input type="radio"> 700
+              <a href="#" class="remove_field_author">Remove Author</a>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <label for="words">Author :</label>
+      <a href="#" class="add_field_author">Add More Fields</a>
+      <div class="form-group" >
+        <div class="author_field">
+          <div>
+            <%= text_field_tag 'article[author_name][]' ,'', id: "author_#{@count_author}" , class: "text-search-query" %> 
+            <%= hidden_field_tag 'article[author_ids][]', '', id: "val_author_#{@count_author}" , class: "val-search-query" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <%= f.submit "Submit" ,class: "btn btn-primary"%>
 
     <% end %>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.count_author = <%= @count_author %>
+<% end %>

@@ -9,6 +9,10 @@ module Articles
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
+          indexes :author_name, analyzer: 'thai', index_options: 'offsets',  boost: 10,
+          type: 'string' do
+            indexes :raw, type: 'string',  index: :not_analyzed 
+          end
           indexes :article_name, analyzer: 'thai', index_options: 'offsets',  boost: 9
           indexes :journal_name , analyzer: 'thai', index_options: 'offsets',  boost: 8,
           type: 'string' do
