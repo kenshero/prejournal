@@ -2,7 +2,7 @@ class YearsController < ApplicationController
   before_filter :authorize
   def index
     @journal = get_journal_id
-    @years   = @journal.years.all
+    @years   = @journal.years.order('journal_year ASC').all
   end
 
   def new

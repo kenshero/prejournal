@@ -38,11 +38,13 @@ class ArticlesController < ApplicationController
 
   def update
     # render plain: article_params
+    # render plain: authortype_param
     @journal = get_journal_id
     @year    = get_year_id
     @issue   = get_issue_id
     @article = get_article_id
     if @article.update_attributes(article_params)
+      # map_role_author
       redirect_to journal_year_issue_articles_path
     else
       render 'edit'
@@ -92,5 +94,22 @@ class ArticlesController < ApplicationController
       @issue.articles.find(params.require(:id))
     end
 
+    def authortype_param
+      params.require(:author)
+    end
+
+    # def map_role_author
+    #   puts "#{authortype_param} sssssss"
+    #   # puts @article.inspect
+    #   @article.author_ids.each_with_index do |id_author,index|
+    #     puts id_author
+    #     author_article = ArticleAuthor.find_by(author_id: id_author ,article_id: @article.id)
+    #     puts author_article.inspect
+    #     puts authortype_param["author_role_#{index+1}"]
+    #     author_article.authortype = authortype_param["author_role_#{index+1}.to_i"]
+    #     author_article.save
+    #   end
+    #   # s
+    # end
 
 end

@@ -35,11 +35,11 @@ $(document).ready(function(){
 
   //////// author ////////////
   var author_field      = $(".author_field"); //Fields field_keyword
-  var add_field_author = $(".add_field_author"); //Add button ID
+  var add_field_author  = $(".add_field_author"); //Add button ID
   
   $(add_field_author).on("click", null, function () {
     count_author++;
-    $(author_field).append('<div><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query " /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" ><a href="#" class="remove_field_author">Remove</a></div>'); //add input box
+    $(author_field).append('<div class="form-group"><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query form-word" /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" ><a href="#" class="remove_field_author">Remove</a></div>'); //add input box
      action_autocomeplete();
   });
 
@@ -48,7 +48,7 @@ $(document).ready(function(){
   })
 
   action_autocomeplete();
-  // console.log(count_author);
+  console.log(count_author);
   /////// auto-complete ///////
 
   function action_autocomeplete(){
@@ -90,4 +90,18 @@ $(document).ready(function(){
     } //for
   }
 
+
+
 });
+  function remove_fields(link) {  
+      // $(link).previous("input[type=hidden]").value = "1";  
+      // $(link).up(".fields").hide();  
+    // 1
+    $(link).prevAll("input[type=hidden]").first().val("1");
+
+    // 2
+    $(link).closest(".fields").hide();
+    // Or: $(link).parents(".fields").first().hide();
+    // Or: $(link).parent().closest(".fields").first().hide();
+
+  }

@@ -1,10 +1,5 @@
 class Journal < ActiveRecord::Base
-
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-  include Journals::Searchable
-  include Journals::Mapping
-
+  validates :journal_name, :presence => true
+  
   has_many :years, dependent: :destroy
-
 end

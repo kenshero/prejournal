@@ -7,6 +7,19 @@
   <div class="row">
     <%= link_to '+ Add Author' , new_author_path , class: 'btn btn-primary pull-right' %>
   </div>
+
+  <%= form_tag authors_path, method: :get do %>
+    <div class="row" style="margin-bottom:18px;">
+      <div class="col-md-9">
+         <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search Author'%>
+      </div>
+
+      <div class="col-md-1">
+        <%= button_tag 'Search ',:class => "btn btn-success", name: "btn-search" %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
     <table class="table table-striped">
       <thead>

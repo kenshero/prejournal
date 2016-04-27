@@ -190,11 +190,13 @@
 #     article_point = Article.find_by(article_name: article)
 #     # puts "#{article_point.inspect}"
 #     if article_point.nil?
-#       puts "nil5555"
+#       puts "#{article} sssssssss"
+#       @articles_search = Article.where("article_name LIKE ?" , "%#{article}%")
+#       puts "#{@articles_search.count} ggggggggg"
 #     else
 #       count_article = count_article + 1
-#       article_point.keywords << keyword
-#       article_point.save
+#       # article_point.keywords << keyword
+#       # article_point.save
 #       puts "#{article_point.inspect}"
 #       puts "#{article_point.keywords}"
 #     end
@@ -229,3 +231,82 @@
 #   end
 #   puts " Result Count Keyword = #{count_article}"
 # end
+
+################# Report ####################
+
+######## article_have_keyword_only ##########
+
+# @article_have_keyword = 0
+# @article_have_not_keyword = 0
+#   @articles = Article.all
+#   @articles.each do |article|
+#     if article.keywords.length != 0
+#       puts "#{article.keywords}"
+#       @article_have_keyword = @article_have_keyword + 1
+#     else
+#       puts "Dont' have"
+#       @article_have_not_keyword = @article_have_not_keyword + 1
+#     end
+#   end
+# puts "Article Have Keywords amount #{@article_have_keyword} ."
+# puts "Article Have Not Keywords amount #{@article_have_not_keyword} ."
+
+####################################################################
+
+######## article_have_author_only ##########
+
+# @article_have_author = 0
+# @article_have_not_author = 0
+#   @articles = Article.all
+#   @articles.each do |article|
+#     if article.author_name.length != 0
+#       puts "#{article.author_name}"
+#       @article_have_author = @article_have_author + 1
+#     else
+#       puts "Dont' have"
+#       @article_have_not_author = @article_have_not_author + 1
+#     end
+#   end
+# puts "Article Have authors amount #{@article_have_author} ."
+# puts "Article Have Not authors amount #{@article_have_not_author} ."
+
+####################################################################
+
+######## article_have_keyword_and_author ##########
+
+# @article_have_keyword_author = 0
+# @article_have_not_keyword_author = 0
+#   @articles = Article.all
+#   @articles.each do |article|
+#     if article.author_name.length != 0 && article.keywords.length != 0
+#       puts "#{article.author_name}"
+#       @article_have_keyword_author = @article_have_keyword_author + 1
+#     else
+#       puts "Dont' have"
+#       @article_have_not_keyword_author = @article_have_not_keyword_author + 1
+#     end
+#   end
+# puts "Article Have authors and keywords amount #{@article_have_keyword_author} ."
+# puts "Article Have Not authors and keywords amount #{@article_have_not_keyword_author} ."
+
+####################################################################
+
+####### genearate PDF_PATH ########
+
+# articles = Article.where(id: 317157 .. 398137).all
+# count = 0
+# articles.each do |article|
+#   journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
+#   year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
+#   issue_name   = article.issue.number.gsub(/[\n\r]/,'')
+
+#   pdf = journal_name+"/"+year_name+"/"+issue_name+"/"+article.article_name
+#   puts "#{pdf.inspect} sss"
+#   puts "#{article.id}"
+#   article.pdf_path = pdf
+#   if article.save
+#     count = count + 1
+#   end
+# end
+# puts "Result Article #{count}"
+##################################

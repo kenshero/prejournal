@@ -2,9 +2,9 @@ class JournalsController < ApplicationController
   before_filter :authorize
   def index
     if params[:q].present?
-      @journals = Journal.journal_back_cart_search(params[:q]).results
+      @journals = Journal.where("journal_name LIKE ?" , "%#{params[:q]}%").order('journal_name ASC')
     else
-      @journals = Journal.order('id ASC').all
+      @journals = Journal.order('journal_name ASC').all
     end
   end
 

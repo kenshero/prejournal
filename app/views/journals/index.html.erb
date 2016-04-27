@@ -11,11 +11,11 @@
   <%= form_tag journals_path, method: :get do %>
     <div class="row" style="margin-bottom:18px;">
       <div class="col-md-9">
-         <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search'%>
+         <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search Journal'%>
       </div>
 
       <div class="col-md-1">
-        <%= button_tag 'Search',:class => "btn btn-success", name: "btn-search" %>
+        <%= button_tag 'Search ',:class => "btn btn-success", name: "btn-search" %>
       </div>
     </div>
   <% end %>

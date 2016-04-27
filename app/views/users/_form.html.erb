@@ -1,6 +1,5 @@
 <%= stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track' => true %>
 <%= render 'layouts/navbar' %>
-
   <div class="container">
 
 
@@ -26,24 +25,24 @@
       </div>
       <div class="body-form-login">
         <%= form_for(@user) do |f| %>
-          <div class="field panel-label">
+          <div class="form-group panel-label">
             <%= f.label :username , class: "label-head" %><br />
             <%= f.text_field :username , class: "form-control", autofocus: true %>
           </div>
 
-          <div class="field panel-label">
+          <div class="form-group panel-label">
             <%= f.label :password , class: "label-head" %>
             <%= f.password_field :password , class: "form-control", autocomplete: "off" %>
           </div>
 
-          <div class="field panel-label">
+          <div class="form-group panel-label">
             <%= f.label :password_confirmation , class: "label-head" %><br />
             <%= f.password_field :password_confirmation , class: "form-control", autocomplete: "off" %>
           </div>
 
              <%= f.hidden_field :admin , value:false %>
           <div class="actions">
-            <%= f.submit "Sign up" ,class: "btn-primary" %>
+            <%= f.submit "Sign up" ,class: "btn btn-primary" %>
           </div>
         <% end %>
       </div>

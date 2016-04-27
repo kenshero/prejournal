@@ -29,6 +29,11 @@
       <%= f.text_field :article_name ,class: "form-control" %>
     </div>
 
+    <div class="form-group">
+      <label>PDF_Path</label>
+      <%= f.text_field :pdf_path ,class: "form-control" %>
+    </div>
+
     <!-- ///////////////////////// keywords //////////////////////// -->
     <% if @article.persisted? %>
       <div class="form-group">
@@ -64,8 +69,8 @@
       <div class="form-group">
         <div class="author_field">
           <% @article.author_name.each do |author| %>
-              <div>
-              <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query" %> 
+              <div class="form-group">
+              <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query form-word" %> 
               <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'') + "\r\n") %>
               <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
               <label>Role :</label>
