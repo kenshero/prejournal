@@ -107,11 +107,11 @@ module Api
           puts "ALLLLLLLLLLLLLLLLLLLLLLLLL"
           @data   = Article.article_search_without_keyword_author(text_search,text_facet,page)
           @amount = Article.article_search_without_keyword_author(text_search,text_facet,page).results.total
-          @data_facet     = Article.article_search(text_search,page)
-          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          # @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data.response["aggregations"]["by_authors"]["buckets"]
           @response = { data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,
@@ -123,11 +123,11 @@ module Api
           puts "FULL"
           @data   = Article.article_search_all(text_search,text_facet,page)
           @amount = Article.article_search_all(text_search,text_facet,page).results.total
-          @data_facet     = Article.article_search(text_search,page)
-          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          # @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data.response["aggregations"]["by_authors"]["buckets"]
           @response = { data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,
@@ -139,11 +139,11 @@ module Api
           puts "BBBBBBBBBBBBBBBBBB"
           @data   = Article.article_search_without_keywords(text_search,text_facet,page)
           @amount = Article.article_search_without_keywords(text_search,text_facet,page).results.total
-          @data_facet     = Article.article_search(text_search,page)
-          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          # @data_facet     = Article.article_search(text_search,page)
+          @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data.response["aggregations"]["by_authors"]["buckets"]
           @response = { data: @data, 
                         amount: @amount,
                         journals_facet: @journals_facet,
@@ -155,11 +155,11 @@ module Api
           puts "CCCCCCCCCCCCCCCCCCC"
           @data   = Article.article_search_without_authors(text_search,text_facet,page)
           @amount = Article.article_search_without_authors(text_search,text_facet,page).results.total
-          @data_facet = Article.article_search(text_search,page)
-          @journals_facet = @data_facet.response["aggregations"]["by_journal"]["buckets"]
-          @years_facet    = @data_facet.response["aggregations"]["by_year"]["buckets"]
-          @keywords_facet = @data_facet.response["aggregations"]["by_keywords"]["buckets"]
-          @authors_facet  = @data_facet.response["aggregations"]["by_authors"]["buckets"]
+          # @data_facet = Article.article_search(text_search,page)
+          @journals_facet = @data.response["aggregations"]["by_journal"]["buckets"]
+          @years_facet    = @data.response["aggregations"]["by_year"]["buckets"]
+          @keywords_facet = @data.response["aggregations"]["by_keywords"]["buckets"]
+          @authors_facet  = @data.response["aggregations"]["by_authors"]["buckets"]
           # puts @data
           # # puts "#{@data}  ssss #{@journals_facet}"
           # # @journals  = Journal.find(journal_id)

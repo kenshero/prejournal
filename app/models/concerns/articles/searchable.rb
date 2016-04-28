@@ -17,25 +17,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 0
+                  size: 5
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 0
+                   size: 5
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 0
+                   size: 5
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 0
+                   size: 5
                 }
               }
             } #agg
@@ -94,7 +94,33 @@ module Articles
                   }
                 } #filter
               }
-            }
+            },
+            aggs: {
+              by_journal: {
+                terms: {
+                  field: "journal_name.raw",
+                  size: 5
+                  }
+              },
+              by_year:{
+                terms: {
+                   field: "journal_year.raw",
+                   size: 5
+                }
+              },
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 5
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
+                   size: 5
+                }
+              }
+            } #agg
           }
         )
       end
@@ -129,7 +155,33 @@ module Articles
                   }
                 } #filter
               }
-            }
+            },
+            aggs: {
+              by_journal: {
+                terms: {
+                  field: "journal_name.raw",
+                  size: 5
+                  }
+              },
+              by_year:{
+                terms: {
+                   field: "journal_year.raw",
+                   size: 5
+                }
+              },
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 5
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
+                   size: 5
+                }
+              }
+            } #agg
           }
         )
       end
@@ -169,7 +221,33 @@ module Articles
                   }
                 } #filter
               }
-            }
+            },
+            aggs: {
+              by_journal: {
+                terms: {
+                  field: "journal_name.raw",
+                  size: 5
+                  }
+              },
+              by_year:{
+                terms: {
+                   field: "journal_year.raw",
+                   size: 5
+                }
+              },
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 5
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
+                   size: 5
+                }
+              }
+            } #agg
           }
         )
       end
@@ -209,7 +287,33 @@ module Articles
                   }
                 } #filter
               }
-            }
+            },
+            aggs: {
+              by_journal: {
+                terms: {
+                  field: "journal_name.raw",
+                  size: 5
+                  }
+              },
+              by_year:{
+                terms: {
+                   field: "journal_year.raw",
+                   size: 5
+                }
+              },
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 5
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
+                   size: 5
+                }
+              }
+            } #agg
           }
         )
       end
@@ -254,7 +358,33 @@ module Articles
                   }
                 } #filter
               }
-            }
+            },
+            aggs: {
+              by_journal: {
+                terms: {
+                  field: "journal_name.raw",
+                  size: 5
+                  }
+              },
+              by_year:{
+                terms: {
+                   field: "journal_year.raw",
+                   size: 5
+                }
+              },
+              by_keywords:{
+                terms: {
+                   field: "keywords.raw",
+                   size: 5
+                }
+              },
+              by_authors:{
+                terms: {
+                   field: "author_name.raw",
+                   size: 5
+                }
+              }
+            } #agg
           }
         )
       end
