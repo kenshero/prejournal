@@ -17,25 +17,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg
@@ -99,25 +99,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg
@@ -160,25 +160,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg
@@ -226,25 +226,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg
@@ -292,25 +292,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg
@@ -363,25 +363,25 @@ module Articles
               by_journal: {
                 terms: {
                   field: "journal_name.raw",
-                  size: 5
+                  size: 0
                   }
               },
               by_year:{
                 terms: {
                    field: "journal_year.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 5
+                   size: 0
                 }
               },
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 5
+                   size: 0
                 }
               }
             } #agg

@@ -206,8 +206,8 @@
 
 # open("/home/kenshero/Downloads/new/e_journal_author (1).csv") do |authors|
 #   authors.read.each_line do |author|
-#     id,name = author.gsub(/["|]/,'').split(";")
-#     puts "#{name}"
+#     id,name = author.gsub(/["|\r\n]/,'').split(";")
+#     puts "#{name.inspect}"
 #     Author.create!(author_name: name)
 #   end
 # end

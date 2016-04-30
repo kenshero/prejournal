@@ -71,7 +71,7 @@
           <% @article.author_name.each do |author| %>
               <div class="form-group">
               <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query form-word" %> 
-              <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'') + "\r\n") %>
+              <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'')) %>
               <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
               <label>Role :</label>
               <input type="radio"> 100
@@ -87,7 +87,7 @@
       <div class="form-group" >
         <div class="author_field">
           <div>
-            <%= text_field_tag 'article[author_name][]' ,'', id: "author_#{@count_author}" , class: "text-search-query" %> 
+            <%= text_field_tag 'article[author_name][]' ,'', id: "author_#{@count_author}" , class: "text-search-query form-word" %> 
             <%= hidden_field_tag 'article[author_ids][]', '', id: "val_author_#{@count_author}" , class: "val-search-query" %>
           </div>
         </div>
