@@ -23,7 +23,9 @@ module Articles
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
           indexes :number, analyzer: 'thai', index_options: 'offsets'
+          indexes :pdf_path, index_options: 'offsets'
           indexes :name_suggest, type: 'completion'
+
           # indexes :journal_name_suggest, type: 'completion'
           # indexes :coordinates, type: 'geo_point'
           # indexes :company_number

@@ -392,7 +392,8 @@ module Articles
       def as_indexed_json(options={})
         @article = {
           article_name: self.article_name,
-          keywords: self.keywords
+          keywords: self.keywords,
+          pdf_path: self.pdf_path
         }
 
         @issue = {
@@ -428,7 +429,7 @@ module Articles
 
         # binding.pry
         @result.as_json(
-          only: [:article_name,:keywords,:author_name,:journal_name,:number,:journal_year]
+          only: [:article_name,:keywords,:author_name,:journal_name,:number,:journal_year,:pdf_path]
         ).merge(suggester)
 
       end
