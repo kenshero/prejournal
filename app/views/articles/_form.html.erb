@@ -9,7 +9,8 @@
     <li><%= link_to  'Issues' , journal_year_issues_path %></li>
     <li><%= link_to  'Articles' , journal_year_issue_articles_path %></li>
     <li class="active">Save Article</li>
-  </ol>  
+  </ol>
+
   <% if @article.errors.any? %>
     <div class="alert alert-danger alert-dismissible fade in">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,6 +21,7 @@
           <% end %>           
     </div>  
   <% end %>
+
 
   <div class="row">
     <%= nested_form_for [@journal,@year,@issue ,@article] do |f| %>
@@ -68,16 +70,30 @@
       <a href="#" class="add_field_author">Add More Fields</a>
       <div class="form-group">
         <div class="author_field">
-          <% @article.author_name.each do |author| %>
+          <% @article.author_name.each_with_index do |author,index| %>
               <div class="form-group">
               <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query form-word" %> 
               <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'')) %>
               <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
               <label>Role :</label>
-              <input type="radio"> 100
-              <input type="radio"> 700
+
+              <% if @article.article_authors[index].authortype == "100" %>
+                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100' ,
+                checked: true %> 100
+              <% else %>
+                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100'%> 100
+              <% end %> 
+
+              <% if @article.article_authors[index].authortype == "700" %>
+                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700' ,
+                checked: true %> 700
+              <% else %>
+                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700'%> 700
+              <% end %> 
+
               <a href="#" class="remove_field_author">Remove Author</a>
               </div>
+              <% @count_author = @count_author + 1 %>
           <% end %>
         </div>
       </div>
@@ -89,6 +105,9 @@
           <div>
             <%= text_field_tag 'article[author_name][]' ,'', id: "author_#{@count_author}" , class: "text-search-query form-word" %> 
             <%= hidden_field_tag 'article[author_ids][]', '', id: "val_author_#{@count_author}" , class: "val-search-query" %>
+              <label>Role :</label>
+              <%= radio_button_tag 'author_role[1]' , '100' ,checked: true %> 100
+              <%= radio_button_tag 'author_role[1]' , '700' %> 700
           </div>
         </div>
       </div>

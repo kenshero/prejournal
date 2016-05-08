@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
     @issue   = get_issue_id
     @article = @issue.articles.new(article_params)
     if @article.save
+      @article.update_role(authortype_param)
       redirect_to journal_year_issue_articles_path
     else
       render 'new'
@@ -44,6 +45,7 @@ class ArticlesController < ApplicationController
     @issue   = get_issue_id
     @article = get_article_id
     if @article.update_attributes(article_params)
+      @article.update_role(authortype_param)
       # map_role_author
       redirect_to journal_year_issue_articles_path
     else
@@ -75,7 +77,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:article_name,{ keywords: [] , author_name: [] , author_ids: []})
+      params.require(:article).permit(:article_name,:pdf_path,{ keywords: [] , author_name: [] , author_ids: [] })
     end
 
     def get_journal_id
@@ -95,7 +97,7 @@ class ArticlesController < ApplicationController
     end
 
     def authortype_param
-      params.require(:author)
+      params.require(:author_role)
     end
 
     # def map_role_author

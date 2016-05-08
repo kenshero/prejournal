@@ -244,7 +244,7 @@ module Articles
               by_authors:{
                 terms: {
                    field: "author_name.raw",
-                   size: 0
+                   size: 1
                 }
               }
             } #agg
@@ -304,7 +304,7 @@ module Articles
               by_keywords:{
                 terms: {
                    field: "keywords.raw",
-                   size: 0
+                   size: 1
                 }
               },
               by_authors:{

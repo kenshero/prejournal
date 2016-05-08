@@ -39,7 +39,7 @@ $(document).ready(function(){
   
   $(add_field_author).on("click", null, function () {
     count_author++;
-    $(author_field).append('<div class="form-group"><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query form-word" /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" ><a href="#" class="remove_field_author">Remove</a></div>'); //add input box
+    $(author_field).append('<div class="form-group"><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query form-word" /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" > <label>Role :</label> <input type="radio" name="author_role['+count_author+']" value="100" checked="true"> 100 <input type="radio" name="author_role['+count_author+']" value="700"> 700<a href="#" class="remove_field_author">  Remove Author</a></div>'); //add input box
      action_autocomeplete();
   });
 

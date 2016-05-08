@@ -310,3 +310,22 @@
 # end
 # puts "Result Article #{count}"
 ##################################
+
+# ###### Counter Amount PDF ########
+
+# @article_have_pdf = 0
+# @article_have_not_pdf = 0
+#   @articles = Article.all
+#   @articles.each do |article|
+#     if !article.pdf_path.nil?
+#       puts "#{article.pdf_path}"
+#       @article_have_pdf = @article_have_pdf + 1
+#     else
+#       puts "Dont' have"
+#       @article_have_not_pdf = @article_have_not_pdf + 1
+#     end
+#   end
+# puts "Article Have pdf_path amount #{@article_have_pdf} ."
+# puts "Article Have Not pdf_path amount #{@article_have_not_pdf} ."
+
+# ################################# 
