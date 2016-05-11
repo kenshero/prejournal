@@ -5,20 +5,20 @@ module Articles
       index_name "#{Rails.env}_prearticles"
       mapping do
           indexes :id, index: :not_analyzed
-          indexes :keywords, analyzer: 'thai', index_options: 'offsets',  boost: 7,
+          indexes :article_name, analyzer: 'thai', index_options: 'offsets',  boost: 2
+          indexes :author_name, analyzer: 'thai', index_options: 'offsets',
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
-          indexes :author_name, analyzer: 'thai', index_options: 'offsets',  boost: 9,
+          indexes :journal_name , analyzer: 'thai', index_options: 'offsets',
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
-          indexes :article_name, analyzer: 'thai', index_options: 'offsets',  boost: 10
-          indexes :journal_name , analyzer: 'thai', index_options: 'offsets',  boost: 8,
+          indexes :keywords, analyzer: 'thai', index_options: 'offsets',  boost: 1,
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
-          indexes :journal_year, index_options: 'offsets',  boost: 6,
+          indexes :journal_year, index_options: 'offsets',
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end

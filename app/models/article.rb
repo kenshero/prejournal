@@ -10,8 +10,8 @@ class Article < ActiveRecord::Base
   belongs_to :issue
   has_many :article_authors, dependent: :destroy
   has_many :authors, through: :article_authors
-  before_create :to_cut_whitespace
-  before_update :to_cut_whitespace
+  before_create :to_cut_whitespace ,:check_have_author
+  before_update :to_cut_whitespace ,:check_have_author
 
   # after_create :update_role
 
@@ -29,6 +29,15 @@ class Article < ActiveRecord::Base
   def to_cut_whitespace
     cut_whitespace(keywords)
     cut_whitespace(author_name)
+  end
+
+  def check_have_author
+    puts author_name
+    author_name.each do |name|
+      have_author = Author.find_or_create_by(author_name: name)
+      puts have_author.inspect
+    end
+    # sss
   end
 
   def update_role(author_role)

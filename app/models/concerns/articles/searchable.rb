@@ -5,7 +5,7 @@ module Articles
       def self.article_search(text_search,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               multi_match: {
                 query: text_search,
@@ -57,7 +57,7 @@ module Articles
       def self.article_facet(text_search,text_facet,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               filtered: {
                 query: {
@@ -128,7 +128,7 @@ module Articles
       def self.article_search_without_keyword_author(text_search,text_facet,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               filtered: {
                 query: {
@@ -181,7 +181,10 @@ module Articles
                    size: 0
                 }
               }
-            } #agg
+            }, #agg
+            sort: [
+              {journal_year: {order: "desc"}}
+            ]
           }
         )
       end
@@ -189,7 +192,7 @@ module Articles
       def self.article_search_without_keywords(text_search,text_facet,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               filtered: {
                 query: {
@@ -247,7 +250,10 @@ module Articles
                    size: 1
                 }
               }
-            } #agg
+            }, #agg
+            sort: [
+              {journal_year: {order: "desc"}}
+            ]
           }
         )
       end
@@ -255,7 +261,7 @@ module Articles
       def self.article_search_without_authors(text_search,text_facet,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               filtered: {
                 query: {
@@ -313,7 +319,10 @@ module Articles
                    size: 0
                 }
               }
-            } #agg
+            }, #agg
+            sort: [
+              {journal_year: {order: "desc"}}
+            ]
           }
         )
       end
@@ -321,7 +330,7 @@ module Articles
       def self.article_search_all(text_search,text_facet,page)
         __elasticsearch__.search(
           {
-           from: (page-1)*50 ,size: 50,
+           from: (page-1)*20 ,size: 20,
             query: {
               filtered: {
                 query: {
@@ -384,7 +393,10 @@ module Articles
                    size: 0
                 }
               }
-            } #agg
+            }, #agg
+            sort: [
+              {journal_year: {order: "desc"}}
+            ]
           }
         )
       end
