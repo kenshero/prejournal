@@ -77,18 +77,24 @@
               <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
               <label>Role :</label>
 
-              <% if @article.article_authors[index].authortype == "100" %>
+              <% if @article.article_authors[index].nil? %>
                 <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100' ,
                 checked: true %> 100
-              <% else %>
-                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100'%> 100
-              <% end %> 
-
-              <% if @article.article_authors[index].authortype == "700" %>
-                <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700' ,
-                checked: true %> 700
-              <% else %>
                 <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700'%> 700
+              <% else %>
+                <% if @article.article_authors[index].authortype == "100" %>
+                  <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100' ,
+                  checked: true %> 100
+                <% else %>
+                  <%= radio_button_tag 'author_role['"#{@count_author}"']' , '100'%> 100
+                <% end %> 
+
+                <% if @article.article_authors[index].authortype == "700" %>
+                  <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700' ,
+                  checked: true %> 700
+                <% else %>
+                  <%= radio_button_tag 'author_role['"#{@count_author}"']' , '700'%> 700
+                <% end %> 
               <% end %> 
 
               <a href="#" class="remove_field_author">Remove Author</a>

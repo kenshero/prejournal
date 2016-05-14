@@ -40,6 +40,7 @@ class ArticlesController < ApplicationController
   def update
     # render plain: article_params
     # render plain: authortype_param
+    params[:article][:author_name] = [""] if params[:article][:author_name].nil?
     @journal = get_journal_id
     @year    = get_year_id
     @issue   = get_issue_id
@@ -51,6 +52,10 @@ class ArticlesController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def show
+    @article = Article.find(params[:id])
   end
 
   def destroy
@@ -75,6 +80,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def articles_all
+    if params[:q].present?
+      @articles = Article.where("article_name LIKE ?" , "%#{params[:q]}%").paginate(:page => params[:page], :per_page => 100)
+    else
+      @articles = Article.paginate(:page => params[:page], :per_page => 100)
+    end
+    render "articles/index.all"
+  end
+
   private
     def article_params
       params.require(:article).permit(:article_name,:pdf_path,{ keywords: [] , author_name: [] , author_ids: [] })
@@ -97,7 +111,7 @@ class ArticlesController < ApplicationController
     end
 
     def authortype_param
-      params.require(:author_role)
+      params[:author_role]
     end
 
     # def map_role_author

@@ -1,0 +1,43 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= @article.article_name %></h4>
+      </div>
+      <div class="modal-body">
+            <p>Link : <a href="http://202.28.17.79/e-journal/<%= @article.pdf_path %>.pdf"> Dowload Pdf </a></p>
+
+            <p>ผู้แต่ง : 
+            <% @article.author_name.each do |authorname| %>
+             <span style="line-height:25px;">
+                <%= authorname %>
+                <% if authorname !=  @article.author_name.last %>
+                  <b>&nbsp,&nbsp </b>
+                <% end %>
+              </span>
+            <% end %>
+               <!-- <span ng-show = "journal_detail._source.author_name.length == 0">ไม่ระบุ</span> -->
+            </p>
+            <p>Keyword : 
+            <% @article.keywords.each do |keyword| %>
+             <span style="line-height:25px;">
+                <%= keyword %>
+                <% if keyword !=  @article.keywords.last %>
+                  <b> &nbsp,&nbsp </b>
+                <% end %>
+              </span>
+            <% end %>
+              <!-- <span ng-show = "journal_detail._source.keywords.length == 0">ไม่ระบุ</span> -->
+            </p>
+            <hr>
+
+            <p>ชื่อวารสาร : <%= @article.issue.year.journal.journal_name %></p>
+            <p>ปีที่ : <%= @article.issue.year.journal_year %></p>
+            <p>ฉบับที่ : <%= @article.issue.number %> </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

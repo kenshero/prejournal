@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   validates :article_name, :presence => true
   validates :pdf_path, :presence => true
   validates :keywords, :presence => true ,if: :authors_keywords_not_empty?
-  validates :author_name, :presence => true ,if: :authors_keywords_not_empty?
+  # validates :author_name, :presence => true ,if: :authors_keywords_not_empty?
   # after_update  :map_role_author
   # after_initialize :filter_author_names
   # after_update :filter_author_names
@@ -32,10 +32,8 @@ class Article < ActiveRecord::Base
   end
 
   def check_have_author
-    puts author_name
     author_name.each do |name|
       have_author = Author.find_or_create_by(author_name: name)
-      puts have_author.inspect
     end
     # sss
   end
@@ -45,12 +43,16 @@ class Article < ActiveRecord::Base
     # puts "#{self.inspect} eieieiei"
     author = self.article_authors
     count = 0
-    author_role.each do |key, value |
-      puts "#{author[count].inspect} eieieieii"
-      # puts "#{author_role[key]} ss"
-      author[count].authortype = author_role[key]
-      author[count].save
-      count = count + 1
+    if author_role.nil? || self.author_name.length == 0
+    else
+      author_role.each do |key, value |
+        if author[count].nil?
+        else
+          author[count].authortype = author_role[key]
+          author[count].save
+          count = count + 1
+        end
+      end
     end
   end
 

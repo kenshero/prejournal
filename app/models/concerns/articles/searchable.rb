@@ -412,8 +412,10 @@ module Articles
           number: self.issue.number
         }
 
+        clean_year = self.issue.year.journal_year.gsub(/["|\r\n]/,'').to_i
+        clean_year = clean_year + 543 if clean_year < 2100
         @year = {
-          journal_year: self.issue.year.journal_year
+          journal_year: clean_year
         }
 
         @journal = {

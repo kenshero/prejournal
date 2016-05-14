@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'login'    => 'users#login'
+  get 'articles_all'    => 'articles#articles_all'
   get 'users/:id/edit_admin' => 'users#edit_admin', as: :edit_admin
   post 'logged'  => 'users#logged'
   delete 'destroy_user_session' => 'users#destroy_user_session'

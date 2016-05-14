@@ -1,0 +1,47 @@
+<%= render 'layouts/navbar' %>
+
+<div class="container">
+  <ol class="breadcrumb">
+    <li class="active">Articles</li>
+  </ol>
+  
+  <%= form_tag articles_all_path, method: :get do %>
+    <div class="row" style="margin-bottom:18px;">
+      <div class="col-md-9">
+         <%= text_field_tag :q,params[:q] ,class: "form-control", placeholder: 'Search Article'%>
+      </div>
+
+      <div class="col-md-1">
+        <%= button_tag 'Search ',:class => "btn btn-success", name: "btn-search" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <th>No</th>
+        <th>Name</th>
+      </thead>
+      <tbody>
+        <% number_page = params[:page].to_i %>
+        <% number_page = 1 if number_page == 0 %>
+        <% @articles.each_with_index do |article,index| %>
+        <tr>
+          <td><%= index + (100*(number_page-1)) +1 %></td>
+          <td class="col-md-10"><%=  link_to article.article_name , article_path(article.id),
+           remote: true %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <%= will_paginate @authors, renderer: BootstrapPagination::Rails %>
+  </div>
+
+  <div id="article-modal" class="modal fade"></div>
+
+</div>
+
+ <!-- 086-374-7631 -->

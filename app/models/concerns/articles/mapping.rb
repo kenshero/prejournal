@@ -19,7 +19,7 @@ module Articles
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
           indexes :journal_year, index_options: 'offsets',
-          type: 'string' do
+          type: 'integer' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
           indexes :number, analyzer: 'thai', index_options: 'offsets'
