@@ -440,11 +440,12 @@ module Articles
         @article_issue_year = @article_issue.merge(@year)
         @article_authors =  @article_issue_year.merge(@author)
         @result = @article_authors.merge(@journal)
-
+        @result = @result.merge(suggester)
         # binding.pry
+
         @result.as_json(
           only: [:article_name,:keywords,:author_name,:journal_name,:number,:journal_year,:pdf_path]
-        ).merge(suggester)
+        )
 
       end
      end

@@ -13,8 +13,6 @@ class Article < ActiveRecord::Base
   before_create :to_cut_whitespace ,:check_have_author
   before_update :to_cut_whitespace ,:check_have_author
 
-  # after_create :update_role
-
   validates :article_name, :presence => true
   validates :pdf_path, :presence => true
   validates :keywords, :presence => true ,if: :authors_keywords_not_empty?

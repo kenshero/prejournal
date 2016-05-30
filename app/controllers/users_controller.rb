@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def logged
     user = User.find_by_username(params[:username])
-    if user
+    if user && user.password_digest == BCrypt::Engine.hash_secret(params[:password], user.password_digest)
       session[:user_id] = user.id
       redirect_to journals_path
     else
