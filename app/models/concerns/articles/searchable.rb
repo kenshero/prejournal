@@ -402,6 +402,9 @@ module Articles
       end
 
       def as_indexed_json(options={})
+
+        
+        # puts "#{encodePDF} encode55555555555555555555555555555555555"
         @article = {
           article_name: self.article_name,
           keywords: self.keywords,

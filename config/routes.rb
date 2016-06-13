@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       # get 'journals' => 'journals#index'
       get 'journals/:textSearch/page/:page'  => 'journals#search'
       get 'journals/suggestion/:textSuggest' => 'journals#suggestion'
+      get 'journals/encode_tis/:journal_encode/:year/:issue/:article_encode'  => 'journals#encode_tis'
       post 'journals/:textSearch/facet/page/:page' => 'journals#facet'
       # get 'getarticle/:article_id' => 'journals#get_article'
       # get 'getauthor/:author_id' => 'journals#get_author'

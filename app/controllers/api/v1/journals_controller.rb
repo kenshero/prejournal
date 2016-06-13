@@ -1,7 +1,7 @@
 module Api
   module V1
     class JournalsController < ApplicationController
-      respond_to :json 
+      respond_to :html, :json
       skip_before_action :verify_authenticity_token, only: [:facet]
       require 'hashie'
       def index
@@ -44,6 +44,29 @@ module Api
         #                keywords_facet: @keywords_facet
         #             }
         # respond_with @response
+      end
+
+      def encode_tis
+        journal_encode = params[:journal_encode]
+        year  = params[:year]
+        issue = params[:issue]
+        article_encode = params[:article_encode]
+
+        journal_encode = Iconv.conv('TIS-620', 'utf-8', journal_encode)
+        year  = Iconv.conv('TIS-620', 'utf-8', year)
+        issue = Iconv.conv('TIS-620', 'utf-8', issue)
+        article_encode = Iconv.conv('TIS-620', 'utf-8', article_encode)
+
+        journal_encode = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+        year = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+        issue = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+        article_encode = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+
+        # puts "#{see} ggggggg"
+        pdf_path = journal_encode+"/"+year+"/"+issue+"/"+article_encode
+
+        puts "#{pdf_path}   ddddddd"
+        respond_with pdf_path.to_json
       end
 
       def suggestion

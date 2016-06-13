@@ -59,4 +59,5 @@ class Article < ActiveRecord::Base
     cut_whitespace(author_name)
   end
 
+
 end

@@ -334,22 +334,22 @@
 
 ####### genearate PDF_PATH ########
 
-article = Article.find(242205)
-count = 0
-# articles.each do |article|
-  journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
-  year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
-  issue_name   = article.issue.number.gsub(/[\n\r]/,'')
+# article = Article.find(242205)
+# count = 0
+# # articles.each do |article|
+#   journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
+#   year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
+#   issue_name   = article.issue.number.gsub(/[\n\r]/,'')
 
-  pdf = journal_name+"/"+year_name+"/"+issue_name+"/"+article.article_name
-  puts "#{pdf.inspect} sss"
-  puts "#{article.id}"
-  article.pdf_path = pdf
-  if article.save
-    count = count + 1
-  end
-# end
-puts "Result Article #{count}"
+#   pdf = journal_name+"/"+year_name+"/"+issue_name+"/"+article.article_name
+#   puts "#{pdf.inspect} sss"
+#   puts "#{article.id}"
+#   article.pdf_path = pdf
+#   if article.save
+#     count = count + 1
+#   end
+# # end
+# puts "Result Article #{count}"
 
 ##################################
 
