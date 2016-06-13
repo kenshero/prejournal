@@ -3,9 +3,24 @@ module Articles
     extend ActiveSupport::Concern
       included do
       index_name "#{Rails.env}_prearticles"
-      mapping do
+
+      settings analysis: {
+        analyzer: { 
+          oak_bab: { 
+            tokenizer: 'uax_url_email',
+            filters: ["standard","my_stop","lowercase", "stop", "kstem" ]
+            }
+          }
+      },
+      filter: {
+        my_stop: {
+          type: "stop",
+          stopwords: ["การออกแบบ","ออกแบบ"]
+        }
+      } do
+        mapping do
           indexes :id, index: :not_analyzed
-          indexes :article_name, analyzer: 'thai', index_options: 'offsets',  boost: 2
+          indexes :article_name, analyzer: 'oak_bab', index_options: 'offsets',  boost: 1
           indexes :author_name, analyzer: 'thai', index_options: 'offsets',
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
@@ -14,7 +29,7 @@ module Articles
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
-          indexes :keywords, analyzer: 'thai', index_options: 'offsets',  boost: 1,
+          indexes :keywords, analyzer: 'thai', index_options: 'offsets',
           type: 'string' do
             indexes :raw, type: 'string',  index: :not_analyzed 
           end
@@ -47,6 +62,7 @@ module Articles
           # indexes :region_ids,   type: 'integer', index: :not_analyzed
           # indexes :category_ids, type: 'integer', index: :not_analyzed
           # indexes :tag_ids,      type: 'integer', index: :not_analyzed
+        end
       end
     end
   end

@@ -4,5 +4,5 @@ class Year < ActiveRecord::Base
 
   validates :journal_year, :presence => true,
                       :length => {:within => 4..4},
-                      :numericality => true
+                      :numericality => { :less_than_or_equal_to => Date.current.year + 543 }
 end

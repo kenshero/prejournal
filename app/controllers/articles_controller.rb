@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
     @journal = get_journal_id
     @year    = get_year_id
     @issue   = get_issue_id
-    @articles = @issue.articles.all
+    @articles = @issue.articles.all.order('article_name ASC')
   end
 
   def new

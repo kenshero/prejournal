@@ -164,16 +164,16 @@ module Api
           # # puts "#{@data}  ssss #{@journals_facet}"
           # # @journals  = Journal.find(journal_id)
           # # @issues    = @journals.issues.all
-          puts @data
           @response = { 
-                        data: @data, 
+                        data: @data,
                         amount: @amount,
                         journals_facet: @journals_facet,
                         years_facet: @years_facet,
                         keywords_facet: @keywords_facet,
                         authors_facet: @authors_facet
                       }
-        end #endif
+        end
+        # puts "#{@response.inspect}"
         render json: @response
       end
     end

@@ -14,8 +14,8 @@ class Article < ActiveRecord::Base
   before_update :to_cut_whitespace ,:check_have_author
 
   validates :article_name, :presence => true
-  validates :pdf_path, :presence => true
-  validates :keywords, :presence => true ,if: :authors_keywords_not_empty?
+  # validates :pdf_path, :presence => true
+  # validates :keywords, :presence => true ,if: :authors_keywords_not_empty?
   # validates :author_name, :presence => true ,if: :authors_keywords_not_empty?
   # after_update  :map_role_author
   # after_initialize :filter_author_names

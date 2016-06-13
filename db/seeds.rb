@@ -106,27 +106,29 @@
 # @issue = 0
 # @article = 0
 
-# open("/home/kenshero/newarticles.txt") do |issues|
+## if new file use -3 ##
+# open("/home/kenshero/newarticlesv2.txt") do |issues|
 #   issues.read.each_line do |issue|
 #     words = issue.split("/")
 #     if words.length == 2
 #       @journal_ref = words[1]
-#       @journal_ref = @journal_ref[0...-3]
-#       # puts "#{@journal_ref} __ Ref"
+#       @journal_ref = @journal_ref[0...-2]
+#       puts "#{@journal_ref.inspect} __ Ref"
 #       @year = 1
 #       @issue = 0
 #       @article = 0
+#       # ss
 #     elsif words.length == 3
 #       @year_ref = words[2]
-#       @year_ref = @year_ref[0...-3]
-#       # puts "#{@year_ref} __ Ref"
+#       @year_ref = @year_ref[0...-2]
+#       puts "#{@year_ref.inspect} __ Ref"
 #       @year = 0
 #       @issue = 1
 #       @article = 0
 #     elsif words.length == 4
 #       @issue_ref = words[3]
-#       @issue_ref = @issue_ref[0...-3]
-#       # puts "#{@issue_ref} __ Ref"
+#       @issue_ref = @issue_ref[0...-2]
+#       puts "#{@issue_ref.inspect} __ Ref"
 #       @year = 0
 #       @issue = 0
 #       @article = 1
@@ -137,40 +139,43 @@
 #         # puts "No Issue"
 #       else
 #         # puts @journal_ref
-#         puts "Yes Year #{words[0]}"
+#         words[0] = words[0].strip
+#         puts "Yes Year #{words[0].inspect}"
 #         id = Journal.find_by(journal_name: @journal_ref)
-#         # puts id.id
+#         puts id
 #         Year.create!(journal_year: words[0],
 #                      journal_id: id.id)
 #       end
 #     elsif @issue == 1
-#       if words[0] == "e-journal"
+#       if words[0] == "e-journal" || words[0] == "\n"
 #         # puts "No Issue"
 #       else
 #         # puts "   Yes Issue #{words[0]}"
 #         number = words[0]
-#         puts "#{number}" 
-#         # puts "#{@journal_ref}"
+#         number = number.strip
+#         puts "#{number.inspect}"
 #         id_journal = Journal.find_by(journal_name: @journal_ref)
 #         # puts "#{id_journal.inspect}"
 #         # puts "#{@year_ref}"
-#         id = id_journal.years.find_by(journal_year: @year_ref+"\r\n")
+#         id = id_journal.years.find_by(journal_year: @year_ref)
 #         # puts "#{id}"
 #         Issue.create!(number: number,
 #                       year_id: id.id)
 #       end
 #     elsif @article == 1
-#       isPdf =  words[0][words[0].length-6...words[0].length]
-#       # puts "#{isPdf}"
+#       isPdf =  words[0][words[0].length-5...words[0].length]
+#       puts "#{isPdf.inspect}"
+#       isPdf = isPdf.strip if isPdf != nil
 #       # binding.pry
-#       if isPdf == ".pdf"+"\r\n"
-#         article = words[0][0...-6]
+#       if isPdf == ".pdf"
+#         article = words[0][0...-5]
 #         number = @issue_ref
-#         puts "#{number}"
-#         puts "#{article}"
+#         puts "#{number.inspect}"
+#         puts "#{article.inspect}"
+
 #         id_journal = Journal.find_by(journal_name: @journal_ref)
-#         id_year    = id_journal.years.find_by(journal_year: @year_ref+"\r\n")
-#         id_issue   = id_year.issues.find_by(number: number+"\r\n")
+#         id_year    = id_journal.years.find_by(journal_year: @year_ref)
+#         id_issue   = id_year.issues.find_by(number: number)
 #         # puts "#{id_year}"
 #         # puts "#{id_issue}"
 #         Article.create!(article_name: article,
@@ -186,23 +191,79 @@
 #   count_article = 0
 #   article_keyword.read.each_line do |articlekeyword|
 #     article,keyword = articlekeyword.split("/")
-#     # puts "#{article} --- #{keyword}"
-#     article_point = Article.find_by(article_name: article)
+
+#     Article.where(article_name: article).each do |article_point|
+#       if article_point.nil?
+#         puts "#{article} dont'have "  
+#       else
+#         # count_article = count_article + 1
+#         puts "#{article_point.article_name} ------ #{keyword}"
+#         article_point.keywords << keyword
+#         article_point.save
+#       end
+#     end
+#     # article_point = Article.find_by(article_name: article)
 #     # puts "#{article_point.inspect}"
-#     if article_point.nil?
-#       puts "#{article} sssssssss"
-#       @articles_search = Article.where("article_name LIKE ?" , "%#{article}%")
-#       puts "#{@articles_search.count} ggggggggg"
-#     else
-#       count_article = count_article + 1
-#       # article_point.keywords << keyword
-#       # article_point.save
-#       puts "#{article_point.inspect}"
-#       puts "#{article_point.keywords}"
+#   end
+#   # puts " Result Count Keyword = #{count_article}"
+# end
+
+##########------create author-----------############
+
+# open("/home/kenshero/newauthors.txt") do |article_author|
+#   count_article = 0
+#   article_author.read.each_line do |articleauthor|
+#     article,author,role = articleauthor.split("//")
+#       # puts "#{article.inspect}"
+#       # article_point = Article.find_by(article_name: article)
+#     Article.where(article_name: article).each do |article_point|
+#       if article_point.nil?
+#         puts "#{article} dont'have "  
+#       else
+#         count_article = count_article + 1
+#         article_point.author_name << author
+#         article_point.save
+#         puts "#{article_point.inspect}"
+#         puts "#{article_point.author_name}"
+#       end
 #     end
 #   end
-#   puts " Result Count Keyword = #{count_article}"
+#   puts " Result Count Author = #{count_article}"
 # end
+
+##########-----------------############
+
+### Delete All Keywords in Articles ##
+
+#   @count_article_keyword = 0
+# Article.all.each do |article|
+
+#   if article.keywords.count != 0
+#     puts "#{article.article_name}"
+#     article.keywords = []
+#     article.save
+#     @count_article_keyword = @count_article_keyword+1
+#   end
+# end
+# puts "Result index : #{@count_article_keyword}"
+
+##########---------------###########
+
+### Delete All Authors in Articles ##
+
+# @count_article_author = 0
+# Article.all.each do |article|
+
+#   if article.author_name.count != 0
+#     puts "#{article.article_name}"
+#     article.author_name = []
+#     article.save
+#     @count_article_author = @count_article_author+1
+#   end
+# end
+# puts "Result index : #{@count_article_author}"
+
+##########---------------###########
 
 # open("/home/kenshero/Downloads/new/e_journal_author (1).csv") do |authors|
 #   authors.read.each_line do |author|
@@ -210,26 +271,6 @@
 #     puts "#{name.inspect}"
 #     Author.create!(author_name: name)
 #   end
-# end
-
-# open("/home/kenshero/newauthors.txt") do |article_author|
-#   count_article = 0
-#   article_author.read.each_line do |articleauthor|
-#     article,author,role = articleauthor.split("//")
-#     # puts "#{article} --- #{keyword}"
-#     article_point = Article.find_by(article_name: article)
-#     # puts "#{article_point.inspect}"
-#     if article_point.nil?
-#       puts "nil5555"
-#     else
-#       count_article = count_article + 1
-#       article_point.author_name << author
-#       article_point.save
-#       puts "#{article_point.inspect}"
-#       puts "#{article_point.author_name}"
-#     end
-#   end
-#   puts " Result Count Keyword = #{count_article}"
 # end
 
 ################# Report ####################
@@ -293,22 +334,23 @@
 
 ####### genearate PDF_PATH ########
 
-# articles = Article.where(id: 317157 .. 398137).all
-# count = 0
+article = Article.find(242205)
+count = 0
 # articles.each do |article|
-#   journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
-#   year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
-#   issue_name   = article.issue.number.gsub(/[\n\r]/,'')
+  journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
+  year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
+  issue_name   = article.issue.number.gsub(/[\n\r]/,'')
 
-#   pdf = journal_name+"/"+year_name+"/"+issue_name+"/"+article.article_name
-#   puts "#{pdf.inspect} sss"
-#   puts "#{article.id}"
-#   article.pdf_path = pdf
-#   if article.save
-#     count = count + 1
-#   end
+  pdf = journal_name+"/"+year_name+"/"+issue_name+"/"+article.article_name
+  puts "#{pdf.inspect} sss"
+  puts "#{article.id}"
+  article.pdf_path = pdf
+  if article.save
+    count = count + 1
+  end
 # end
-# puts "Result Article #{count}"
+puts "Result Article #{count}"
+
 ##################################
 
 # ###### Counter Amount PDF ########

@@ -73,7 +73,7 @@
           <% @article.author_name.each_with_index do |author,index| %>
               <div class="form-group">
               <%= text_field_tag 'article[author_name][]' ,author , id: "author_#{@count_author}",class: "text-search-query form-word" %> 
-              <% id_author = Author.find_by(author_name: author.gsub(/[|]/,'')) %>
+              <% id_author = Author.find_by(author_name: author) %>
               <%= hidden_field_tag 'article[author_ids][]' ,id_author.id , id: "val_author_#{@count_author}", class: "val-search-query" %>
               <label>Role :</label>
 
