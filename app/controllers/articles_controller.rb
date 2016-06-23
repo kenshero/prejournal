@@ -23,7 +23,8 @@ class ArticlesController < ApplicationController
     @issue   = get_issue_id
     @article = @issue.articles.new(article_params)
     if @article.save
-      @article.update_role(authortype_param)
+      @article.update_authors_role(authortype_param)
+      @article.update_keywords_role(keywords_role_params)
       redirect_to journal_year_issue_articles_path
     else
       render 'new'
@@ -46,8 +47,8 @@ class ArticlesController < ApplicationController
     @issue   = get_issue_id
     @article = get_article_id
     if @article.update_attributes(article_params)
-      @article.update_role(authortype_param)
-      # map_role_author
+      @article.update_authors_role(authortype_param)
+      @article.update_keywords_role(keywords_role_params)
       redirect_to journal_year_issue_articles_path
     else
       render 'edit'
@@ -91,7 +92,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:article_name,:pdf_path,{ keywords: [] , author_name: [] , author_ids: [] })
+      params.require(:article).permit(:article_name,:pdf_path,{ keywords: [] , author_name: [] , author_ids: [], keyword_role: [] })
     end
 
     def get_journal_id
@@ -114,18 +115,8 @@ class ArticlesController < ApplicationController
       params[:author_role]
     end
 
-    # def map_role_author
-    #   puts "#{authortype_param} sssssss"
-    #   # puts @article.inspect
-    #   @article.author_ids.each_with_index do |id_author,index|
-    #     puts id_author
-    #     author_article = ArticleAuthor.find_by(author_id: id_author ,article_id: @article.id)
-    #     puts author_article.inspect
-    #     puts authortype_param["author_role_#{index+1}"]
-    #     author_article.authortype = authortype_param["author_role_#{index+1}.to_i"]
-    #     author_article.save
-    #   end
-    #   # s
-    # end
+    def keywords_role_params
+      params[:keywords_role]
+    end
 
 end

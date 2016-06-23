@@ -183,7 +183,8 @@ module Articles
               }
             }, #agg
             sort: [
-              {journal_year: {order: "desc"}}
+              {  journal_year: {order: "desc"}  },
+              {  number: {order: "desc"}  }
             ]
           }
         )
@@ -252,7 +253,8 @@ module Articles
               }
             }, #agg
             sort: [
-              {journal_year: {order: "desc"}}
+              {  journal_year: {order: "desc"}  },
+              {  number: {order: "desc"}  }
             ]
           }
         )
@@ -321,7 +323,8 @@ module Articles
               }
             }, #agg
             sort: [
-              {journal_year: {order: "desc"}}
+              {  journal_year: {order: "desc"}  },
+              {  number: {order: "desc"}  }
             ]
           }
         )
@@ -395,7 +398,8 @@ module Articles
               }
             }, #agg
             sort: [
-              {journal_year: {order: "desc"}}
+              {  journal_year: {order: "desc"}  },
+              {  number: {order: "desc"}  }
             ]
           }
         )

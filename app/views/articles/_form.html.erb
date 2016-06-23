@@ -37,16 +37,31 @@
     </div>
 
     <!-- ///////////////////////// keywords //////////////////////// -->
+    <% @count_keyword = 0 %>
     <% if @article.persisted? %>
       <div class="form-group">
         <div class="field_keyword">
           <label for="words">Keyword :</label>
           <a href="#" class="add_field_keyword">Add More Fields</a>
-          <% @article.keywords.each do |keyword| %>
+          <% @article.keywords.each_with_index do |keyword,index| %>
             <div>
-              <input type="text" name="article[keywords][]" id="doc_words_" value="<%= keyword %>"
-              class="form-word" /><a href="#" class="remove_field_keyword">Remove</a>
+              <input type="text" name="article[keywords][]" id="doc_words_" 
+              value="<%= keyword %>" class="form-word" />
+
+              <label>Role :</label>
+                <%= radio_button_tag 'keywords_role['"#{index}"']' , '650', 
+                @article.keywords_role[index] == "650"  ? true : false %> 650
+                <%= radio_button_tag 'keywords_role['"#{index}"']' , '653', 
+                @article.keywords_role[index] == "653"  ? true : false %> 653
+                <%= radio_button_tag 'keywords_role['"#{index}"']' , '610', 
+                @article.keywords_role[index] == "610"  ? true : false %> 610
+                <%= radio_button_tag 'keywords_role['"#{index}"']' , '600', 
+                @article.keywords_role[index] == "600"  ? true : false %> 600
+                <%= radio_button_tag 'keywords_role['"#{index}"']' , '651', 
+                @article.keywords_role[index] == "651"  ? true : false %> 651
+              <a href="#" class="remove_field_keyword">Remove</a>
             </div>
+            <% @count_keyword = @count_keyword + 1 %>
           <% end %>
         </div>
       </div>
@@ -58,6 +73,12 @@
             <a href="#" class="add_field_keyword">Add More Fields</a>
             <br>
             <input type="text" name="article[keywords][]" id="doc_words_" value=""  class="form-word">
+            <label>Role :</label>
+              <%= radio_button_tag 'keywords_role[0]' , '650' ,checked: true %> 650
+              <%= radio_button_tag 'keywords_role[0]' , '653' %> 653
+              <%= radio_button_tag 'keywords_role[0]' , '610' %> 610
+              <%= radio_button_tag 'keywords_role[0]' , '600' %> 600
+              <%= radio_button_tag 'keywords_role[0]' , '651' %> 651
           </div>
         </div>
       </div>
@@ -127,4 +148,5 @@
 
 <%= javascript_tag do %>
   window.count_author = <%= @count_author %>
+  window.count_keyword = <%= @count_keyword %>
 <% end %>

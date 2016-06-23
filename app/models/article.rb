@@ -33,12 +33,10 @@ class Article < ActiveRecord::Base
     author_name.each do |name|
       have_author = Author.find_or_create_by(author_name: name)
     end
-    # sss
   end
 
-  def update_role(author_role)
+  def update_authors_role(author_role)
     puts author_role.inspect
-    # puts "#{self.inspect} eieieiei"
     author = self.article_authors
     count = 0
     if author_role.nil? || self.author_name.length == 0
@@ -54,10 +52,17 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def update_keywords_role(keywords_role)
+    self.keywords_role = []
+    keywords_role.each do |key, value |
+      self.keywords_role << value
+    end
+    self.save
+  end
+
   def authors_keywords_not_empty?
     cut_whitespace(keywords)
     cut_whitespace(author_name)
   end
-
 
 end

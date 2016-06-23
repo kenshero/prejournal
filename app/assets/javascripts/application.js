@@ -25,8 +25,19 @@ $(document).ready(function(){
   var field_keyword      = $(".field_keyword"); //Fields field_keyword
   var add_button_keyword = $(".add_field_keyword"); //Add button ID
   
+  
   $(add_button_keyword).click(function(e){ //on add input button click
-      $(field_keyword).append('<div><input type="text" name="article[keywords][]" id="doc_words_" value="" class="form-word" placeholder="" /><a href="#" class="remove_field_keyword">Remove</a></div>'); //add input box
+      count_keyword++;
+      $(field_keyword).append('<div><input type="text" name="article[keywords][]" id="doc_words_" \
+       value=""  class="form-word" placeholder="" />\
+       <label>Role :</label>\
+        <input type="radio" name="keywords_role['+count_keyword+']" value="650" checked="true"> 650\
+        <input type="radio" name="keywords_role['+count_keyword+']" value="653"> 653\
+        <input type="radio" name="keywords_role['+count_keyword+']" value="610"> 610\
+        <input type="radio" name="keywords_role['+count_keyword+']" value="600"> 600\
+        <input type="radio" name="keywords_role['+count_keyword+']" value="651"> 651\
+       <a href="#" class="remove_field_keyword">Remove Keyword</a>\
+       </div>'); //add input box
   });
 
   $(field_keyword).on("click",".remove_field_keyword", function(e){ //user click on remove text
@@ -39,7 +50,11 @@ $(document).ready(function(){
   
   $(add_field_author).on("click", null, function () {
     count_author++;
-    $(author_field).append('<div class="form-group"><input type="text" name="article[author_name][]" id="author_'+count_author+'" value="" class="text-search-query form-word" /> <input type="hidden" name="article[author_ids][]" id="val_author_'+count_author+'" class ="val-search-query" > <label>Role :</label> <input type="radio" name="author_role['+count_author+']" value="100" checked="true"> 100 <input type="radio" name="author_role['+count_author+']" value="700"> 700<a href="#" class="remove_field_author">  Remove Author</a></div>'); //add input box
+    $(author_field).append('<div class="form-group"><input type="text" name="article[author_name][]" \
+     id="author_'+count_author+'" value="" class="text-search-query form-word" /> <input type="hidden" name="article[author_ids][]" \
+      id="val_author_'+count_author+'" class ="val-search-query" > \
+       <label>Role :</label> <input type="radio" name="author_role['+count_author+']" value="100" checked="true"> 100 <input type="radio" name="author_role['+count_author+']" value="700"> 700  \
+       <a href="#" class="remove_field_author">  Remove Author</a></div>'); //add input box
      action_autocomeplete();
   });
 
@@ -93,15 +108,3 @@ $(document).ready(function(){
 
 
 });
-  function remove_fields(link) {  
-      // $(link).previous("input[type=hidden]").value = "1";  
-      // $(link).up(".fields").hide();  
-    // 1
-    $(link).prevAll("input[type=hidden]").first().val("1");
-
-    // 2
-    $(link).closest(".fields").hide();
-    // Or: $(link).parents(".fields").first().hide();
-    // Or: $(link).parent().closest(".fields").first().hide();
-
-  }

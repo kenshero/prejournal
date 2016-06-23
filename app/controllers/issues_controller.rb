@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
   def index
     @journal = get_journal_id
     @year    = get_year_id
-    @issues  = @year.issues.order('number ASC').all
+    @issues  = @year.issues.order('number DESC').all
   end
 
   def new

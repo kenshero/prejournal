@@ -192,6 +192,8 @@
 #   article_keyword.read.each_line do |articlekeyword|
 #     article,keyword = articlekeyword.split("/")
 
+#     keyword = keyword.gsub('.','')
+#     # puts "#{keyword} ==-"
 #     Article.where(article_name: article).each do |article_point|
 #       if article_point.nil?
 #         puts "#{article} dont'have "  
@@ -235,7 +237,7 @@
 
 ### Delete All Keywords in Articles ##
 
-#   @count_article_keyword = 0
+# @count_article_keyword = 0
 # Article.all.each do |article|
 
 #   if article.keywords.count != 0
