@@ -7,33 +7,45 @@
       <div class="modal-body">
             <p>Link : <a href="http://202.28.17.79/e-journal/<%= @article.pdf_path %>.pdf"> Dowload Pdf </a></p>
 
-            <p>ผู้แต่ง : 
-            <% @article.author_name.each do |authorname| %>
-             <span style="line-height:25px;">
-                <%= authorname %>
-                <% if authorname !=  @article.author_name.last %>
-                  <b>&nbsp,&nbsp </b>
-                <% end %>
-              </span>
+            <% if @article.author_name.length > 0 %>
+              <p>ผู้แต่ง : 
+              <% @article.author_name.each do |authorname| %>
+               <span style="line-height:25px;">
+                  <%= authorname.gsub("|a","") %>
+                  <% if authorname !=  @article.author_name.last %>
+                    <b>&nbsp,&nbsp </b>
+                  <% end %>
+                </span>
+              <% end %>
+              </p>
             <% end %>
-               <!-- <span ng-show = "journal_detail._source.author_name.length == 0">ไม่ระบุ</span> -->
-            </p>
-            <p>Keyword : 
-            <% @article.keywords.each do |keyword| %>
-             <span style="line-height:25px;">
+
+            <% if @article.keywords.length > 0 %>
+              <p>Keyword : 
+              <% @article.keywords.each do |keyword| %>
+               <span style="line-height:25px;">
+
+                <% keyword[0] = keyword[0].gsub(/[xyz]/,'--') %>
+                <% keyword[0] = keyword[0].gsub('a','') %>
                 <%= keyword %>
-                <% if keyword !=  @article.keywords.last %>
-                  <b> &nbsp,&nbsp </b>
-                <% end %>
-              </span>
+
+                  <% if keyword !=  @article.keywords.last %>
+                    <b> &nbsp,&nbsp </b>
+                  <% end %>
+                </span>
+              <% end %>
+              </p>
             <% end %>
-              <!-- <span ng-show = "journal_detail._source.keywords.length == 0">ไม่ระบุ</span> -->
-            </p>
             <hr>
 
             <p>ชื่อวารสาร : <%= @article.issue.year.journal.journal_name %></p>
-            <p>ปีที่ : <%= @article.issue.year.journal_year %></p>
-            <p>ฉบับที่ : <%= @article.issue.number %> </p>
+            <p>ปี : <%= @article.issue.year.journal_year %></p>
+            <% issue , vol = @article.issue.number.split("-") %>
+            <% if !vol.nil? %>
+              <p>ปีที่ : <%= issue.to_i %>  ฉบับที่ <%= vol.to_i %></p>
+            <% else %>
+              <p>ฉบับที่ <%= issue.to_i %></p>
+            <% end %>
 
       </div>
       <div class="modal-footer">

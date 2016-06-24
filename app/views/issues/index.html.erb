@@ -20,7 +20,7 @@
         <% @issues.each_with_index do |issue,index| %>
         <tr>
           <td><%= index + 1 %></td>
-          <td><%= link_to "#{issue.volume} - #{issue.number}" , journal_year_issue_articles_path(@journal,@year.id,issue.id) %></td>
+          <td><%= link_to "#{issue.number}" , journal_year_issue_articles_path(@journal,@year.id,issue.id) %></td>
           <td>
             <%= link_to 'Edit' ,edit_journal_year_issue_path(@journal,@year.id,issue.id), class: "btn btn-warning" %>
             <%= link_to 'Delete', journal_year_issue_path(@journal,@year.id,issue.id),
