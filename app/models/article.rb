@@ -65,4 +65,20 @@ class Article < ActiveRecord::Base
     cut_whitespace(author_name)
   end
 
+  def encode_tis(journal_encode,year,issue,article_encode)
+
+    journal_encode = Iconv.conv('TIS-620', 'utf-8', journal_encode)
+    year  = Iconv.conv('TIS-620', 'utf-8', year)
+    issue = Iconv.conv('TIS-620', 'utf-8', issue)
+    article_encode = Iconv.conv('TIS-620', 'utf-8', article_encode)
+
+    journal_encode = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    article_encode = URI.escape(article_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+
+    self.pdf_path = journal_encode+"/"+year+"/"+issue+"/"+article_encode
+    puts "#{pdf_path}   ddddddd"
+
+    return self.pdf_path
+  end
+
 end

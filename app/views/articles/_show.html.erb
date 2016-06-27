@@ -5,7 +5,15 @@
         <h4 class="modal-title"><%= @article.article_name %></h4>
       </div>
       <div class="modal-body">
-            <p>Link : <a href="http://202.28.17.79/e-journal/<%= @article.pdf_path %>.pdf"> Dowload Pdf </a></p>
+            <p>
+            <%
+                journal = @article.issue.year.journal.journal_name
+                year    = @article.issue.year.journal_year
+                issue   = @article.issue.number
+            %>
+              Link : 
+              <%= link_to "Dowload Pdf", "http://202.28.17.79/e-journal/#{@article.encode_tis(journal,year,issue,@article.article_name)}.pdf", target: '_blank' %>
+            </p>
 
             <% if @article.author_name.length > 0 %>
               <p>ผู้แต่ง : 
@@ -42,7 +50,7 @@
             <p>ปี : <%= @article.issue.year.journal_year %></p>
             <% issue , vol = @article.issue.number.split("-") %>
             <% if !vol.nil? %>
-              <p>ปีที่ : <%= issue.to_i %>  ฉบับที่ <%= vol.to_i %></p>
+              <p>ปีที่ <%= issue.to_i %>  ฉบับที่ <%= vol.to_i %></p>
             <% else %>
               <p>ฉบับที่ <%= issue.to_i %></p>
             <% end %>

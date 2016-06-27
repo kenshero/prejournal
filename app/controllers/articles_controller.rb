@@ -1,3 +1,4 @@
+require 'net/http'
 class ArticlesController < ApplicationController
   respond_to :json
   before_filter :authorize
@@ -57,6 +58,16 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    
+    # journal = @article.issue.year.journal.journal_name
+    # year    = @article.issue.year.journal_year
+    # issue   = @article.issue.number
+
+    # @article.pdf_path =  encode_tis(journal,year,issue,@article.article_name)
+
+    # puts @article.pdf_path.to_s
+    # @article.pdf_path = @article.pdf_path[28..-1]
+    # puts @article.as_json
   end
 
   def destroy

@@ -336,9 +336,9 @@
 
 ####### genearate PDF_PATH ########
 
-# article = Article.find(242205)
+# articles = Article.all
 # count = 0
-# # articles.each do |article|
+# articles.each do |article|
 #   journal_name = article.issue.year.journal.journal_name.gsub(/[\n\r]/,'')
 #   year_name    = article.issue.year.journal_year.gsub(/[\n\r]/,'')
 #   issue_name   = article.issue.number.gsub(/[\n\r]/,'')
@@ -350,7 +350,7 @@
 #   if article.save
 #     count = count + 1
 #   end
-# # end
+# end
 # puts "Result Article #{count}"
 
 ##################################

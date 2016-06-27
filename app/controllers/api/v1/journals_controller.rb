@@ -57,15 +57,13 @@ module Api
         issue = Iconv.conv('TIS-620', 'utf-8', issue)
         article_encode = Iconv.conv('TIS-620', 'utf-8', article_encode)
 
-        journal_encode = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
         # year = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
         # issue = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+        journal_encode = URI.escape(journal_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
         article_encode = URI.escape(article_encode, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-
-        # puts "#{see} ggggggg"
         pdf_path = journal_encode+"/"+year+"/"+issue+"/"+article_encode
-
         puts "#{pdf_path}   ddddddd"
+        
         respond_with pdf_path.to_json
       end
 
